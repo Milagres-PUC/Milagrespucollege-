@@ -1,0 +1,107 @@
+.principalSection {
+  background-color: #0b49a5; /* Deep blue background as per the reference */
+  padding: 5rem 0;
+  color: var(--primary-white);
+  overflow: hidden;
+}
+
+.principalContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .principalContainer {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.contentColumn {
+  position: relative;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-white);
+  margin-bottom: 2rem;
+}
+
+.messageBox {
+  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.quoteIconTop {
+  color: var(--primary-yellow);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+  transform: scaleX(-1); /* Flips the quote icon to face right */
+}
+
+.quoteIconBottom {
+  color: var(--primary-yellow);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.greeting {
+  font-weight: 600;
+  color: var(--primary-yellow);
+  margin-bottom: 1rem;
+}
+
+.messageBox p {
+  margin-bottom: 1.5rem;
+  opacity: 0.95;
+}
+
+.signature {
+  text-align: right;
+  font-weight: 700;
+  margin-top: 2rem;
+  padding-right: 4rem;
+  font-size: 1.1rem;
+}
+
+.imageColumn {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.decorativeBox {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-yellow);
+  z-index: 1;
+}
+
+.pImg {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 991px) {
+  .decorativeBox {
+    top: -10px;
+    right: -10px;
+  }
+}

@@ -1,0 +1,111 @@
+.heroSection {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--primary-white);
+}
+
+.bgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 7, 60, 0.6);
+  /* Dark Blue overlay */
+  z-index: -1;
+}
+
+.heroContent {
+  padding-bottom: 8rem;
+  padding-top: 6rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.heroSubtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.ctaBtn {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+}
+
+/* Scholarship Cards */
+.scholarshipCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .scholarshipCards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .heroContent {
+    padding-bottom: 10rem;
+  }
+}
+
+.card {
+  padding: 2rem;
+  backdrop-filter: blur(5px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.card p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.cardRed {
+  background-color: rgba(179, 1, 1, 0.85);
+  /* Primary Red with opacity */
+}
+
+.cardBlue {
+  background-color: rgba(3, 7, 60, 0.85);
+  /* Primary Dark Blue with opacity */
+}
+
+.cardYellow {
+  background-color: rgba(255, 247, 25, 0.85);
+  /* Primary Yellow with opacity */
+  color: var(--text-dark);
+  /* Dark text for yellow card */
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+}

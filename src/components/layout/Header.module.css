@@ -1,0 +1,273 @@
+.header {
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.topBar {
+  background-color: var(--primary-dark-blue);
+  color: var(--primary-white);
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.topBarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contactInfo {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.yellowIcon {
+  color: var(--primary-yellow);
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+.socialIcon {
+  color: var(--primary-white);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.socialIcon:hover {
+  color: var(--primary-yellow);
+}
+
+.navWrapper {
+  background-color: var(--primary-white);
+  padding: 1rem 0;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.logoImage {
+  height: auto;
+  max-height: 96px;
+  /* Adjust based on preference */
+  width: auto;
+  object-fit: contain;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logoTextLine1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-dark-blue);
+  line-height: 1.1;
+  letter-spacing: 1.5px;
+}
+
+.logoTextLine2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary-dark-blue);
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+}
+
+.logoTextLine3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-red);
+  line-height: 1.1;
+  letter-spacing: 1px;
+}
+
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .desktopNav {
+    display: block;
+  }
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navLink:hover {
+  color: var(--primary-dark-blue);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-yellow);
+  bottom: -4px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.mobileMenuBtn {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--primary-dark-blue);
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .mobileMenuBtn {
+    display: none;
+  }
+}
+
+.mobileNav {
+  background-color: var(--primary-white);
+  border-top: 1px solid #eee;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.mobileNavLink {
+  padding: 1rem 2rem;
+  display: block;
+  color: var(--text-dark);
+  font-weight: 600;
+  border-bottom: 1px solid #f5f5f5;
+  text-transform: uppercase;
+}
+
+.mobileNavLink:hover {
+  background-color: var(--bg-gray);
+  color: var(--primary-dark-blue);
+}
+
+/* Announcement Ticker */
+.tickerBar {
+  background-color: var(--primary-red);
+  color: var(--primary-white);
+  display: flex;
+  font-weight: bold;
+  overflow: hidden;
+  align-items: center;
+}
+
+.tickerHeader {
+  background-color: #8c0000;
+  /* Darker red */
+  padding: 0.5rem 1.5rem;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  z-index: 2;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.marquee p {
+  white-space: nowrap;
+  margin: 0;
+  animation: scrollLeft 25s linear infinite;
+  /* Normal readable speed */
+  padding-left: 100%;
+  font-size: 0.95rem;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .contactInfo {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .tickerHeader {
+    display: none;
+  }
+
+  .logoImage {
+    max-height: 60px;
+  }
+
+  .logoLink {
+    gap: 0.5rem;
+  }
+
+  .logoTextLine1 {
+    font-size: 1.2rem;
+  }
+
+  .logoTextLine2 {
+    font-size: 0.95rem;
+  }
+
+  .logoTextLine3 {
+    font-size: 0.85rem;
+  }
+}

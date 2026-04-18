@@ -1,0 +1,132 @@
+.academicSection {
+  background-color: #050a2b; /* Dark navy background */
+  padding: 5rem 0;
+  color: var(--primary-white);
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-bottom: 3.5rem;
+  font-family: serif; /* Classic look based on reference image */
+}
+
+.studentsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1rem;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 576px) {
+  .studentsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .studentsGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.studentCard {
+  background-color: #e5edf5;
+  color: var(--text-dark);
+  border-radius: 60px 60px 20px 20px; /* Pillow shape from design */
+  padding: 1.5rem 0.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.imgWrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin-bottom: 1rem;
+}
+
+.studentImg {
+  border-radius: 50%;
+  border: 3px solid var(--primary-white);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+
+.coloredRing {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  border-radius: 50%;
+  background: conic-gradient(red, magenta, blue); /* Colorful ring mimicking design */
+  z-index: 1;
+}
+
+.studentName {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.studentDesig {
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.scoreBadge {
+  position: absolute;
+  bottom: -15px;
+  background-color: var(--primary-dark-blue);
+  color: var(--primary-white);
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 2px solid var(--primary-white);
+}
+
+.honoringBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--primary-white);
+  color: var(--primary-dark-blue);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .honoringBanner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.bannerText h3 {
+  font-size: 1.5rem;
+  font-family: serif;
+  margin-bottom: 0.5rem;
+}
+
+.bannerText p {
+  font-style: italic;
+  opacity: 0.9;
+  font-family: serif;
+}
+
+.trophyIcon {
+  color: #D4AF37; /* Metallic Gold */
+}
