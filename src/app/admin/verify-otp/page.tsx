@@ -77,7 +77,7 @@ export default function VerifyOTP() {
         </form>
 
         <div className={styles.footer} style={{ marginTop: '2rem' }}>
-          <p>Didn't receive the code? <Link href="/admin/forgot-password">Resend</Link></p>
+          <p>Didn&apos;t receive the code? <Link href="/admin/forgot-password">Resend</Link></p>
           <Link href="/admin/login" className={styles.backLink}>
             <ArrowLeft size={16} />
             <span>Back to Login</span>

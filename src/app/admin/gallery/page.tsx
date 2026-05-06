@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import styles from './gallery.module.css';
+import Image from 'next/image';
 import { 
   Upload, 
   Trash2, 
@@ -16,7 +17,7 @@ import {
 interface GalleryItem {
   name: string;
   url: string;
-  created_at: string;
+  created_at: string | null;
 }
 
 export default function GalleryManagement() {
@@ -25,11 +26,7 @@ export default function GalleryManagement() {
   const [uploading, setUploading] = useState(false);
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchImages();
-  }, []);
-
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase.storage.from('images').list();
@@ -48,7 +45,11 @@ export default function GalleryManagement() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [supabase]);
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -122,7 +123,7 @@ export default function GalleryManagement() {
           {images.map((image) => (
             <div key={image.name} className={styles.imageCard}>
               <div className={styles.imageWrapper}>
-                <img src={image.url} alt={image.name} />
+                <Image src={image.url} alt={image.name} fill className={styles.galleryImage} />
                 <div className={styles.imageOverlay}>
                   <a href={image.url} target="_blank" rel="noopener noreferrer" className={styles.viewBtn}>
                     <ExternalLink size={18} />

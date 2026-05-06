@@ -75,8 +75,9 @@ export default function ForgotPassword() {
           <div className={styles.successMessage}>
             <div className={styles.successBadge}>Check your email for the reset link!</div>
             <p style={{ textAlign: 'center', marginTop: '1rem', color: '#666' }}>
-              We've sent instructions to <strong>{email}</strong>
+              We&apos;ve sent instructions to <strong>{email}</strong>
             </p>
+            <p>Didn&apos;t receive the code? <Link href="/admin/forgot-password">Resend</Link></p>
           </div>
         )}
 

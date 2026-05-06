@@ -21,7 +21,7 @@ export default async function Dashboard() {
       <div className={styles.header}>
         <div>
           <h1 className={styles.title}>Dashboard Overview</h1>
-          <p className={styles.subtitle}>Welcome back! Here's what's happening today.</p>
+          <p className={styles.subtitle}>Welcome back! Here&apos;s what&apos;s happening today.</p>
         </div>
         <button className={styles.refreshBtn}>
           <TrendingUp size={18} />
