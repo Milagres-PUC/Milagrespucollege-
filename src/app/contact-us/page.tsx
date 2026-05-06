@@ -12,8 +12,8 @@ export default function ContactPage() {
         <div>
           <h3 style={{ color: 'var(--primary-dark-blue)', marginBottom: '1.5rem' }}>Get in Touch</h3>
           <p style={{ marginBottom: '1rem' }}><strong>Address:</strong> Milagres PU College, City Name, State 560001</p>
-          <p style={{ marginBottom: '1rem' }}><strong>Phone:</strong> 90909098878</p>
-          <p style={{ marginBottom: '2rem' }}><strong>Email:</strong> milagrespucollge@gmail.com</p>
+          <p style={{ marginBottom: '1rem' }}><strong>Phone:</strong>0824-2448633 / 7026012900</p>
+          <p style={{ marginBottom: '2rem' }}><strong>Email:</strong>milagrespucmangalore@yahoo.co.in</p>
           <h3 style={{ color: 'var(--primary-dark-blue)', marginBottom: '1rem' }}>Working Hours</h3>
           <p>Monday - Friday: 8:30 AM - 4:30 PM</p>
           <p>Saturday: 8:30 AM - 12:30 PM</p>

@@ -45,11 +45,11 @@ export default function Footer() {
             </li>
             <li className={styles.contactItem}>
               <Phone className={styles.icon} size={18} />
-              <span>90909098878</span>
+              <span>0824-2448633 / 7026012900</span>
             </li>
             <li className={styles.contactItem}>
               <Mail className={styles.icon} size={18} />
-              <span>milagrespucollge@gmail.com</span>
+              <span>milagrespucmangalore@yahoo.co.in</span>
             </li>
           </ul>
         </div>
