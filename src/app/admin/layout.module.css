@@ -1,0 +1,23 @@
+.adminContainer {
+  display: flex;
+  min-height: 100vh;
+  background: #f9f9f9;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Important for flex child with overflow */
+}
+
+.pageBody {
+  padding: 2rem;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .pageBody {
+    padding: 1.5rem 1rem;
+  }
+}

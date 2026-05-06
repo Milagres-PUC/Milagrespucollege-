@@ -1,0 +1,157 @@
+.header {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background: #f5f6f8;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  gap: 0.75rem;
+}
+
+.searchIcon {
+  color: #999;
+}
+
+.searchBar input {
+  background: none;
+  border: none;
+  width: 100%;
+  font-size: 0.9rem;
+  outline: none;
+  color: #333;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover {
+  background: #f5f6f8;
+  color: var(--primary-dark-blue);
+}
+
+.notificationDot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: #ff4d4d;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 12px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.userProfile:hover {
+  background: #f5f6f8;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.userName {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary-dark-blue);
+  text-transform: capitalize;
+}
+
+.userRole {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--primary-yellow);
+  color: var(--primary-dark-blue);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 160px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s;
+  border: 1px solid #eee;
+}
+
+.userProfile:hover .profileDropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.logoutItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.logoutItem:hover {
+  background: #fff5f5;
+}
