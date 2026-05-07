@@ -100,6 +100,24 @@ export default function AdminLogin() {
 
         <div className={styles.footer}>
           <p>&copy; {new Date().getFullYear()} Milagres PU College. All rights reserved.</p>
+          <button 
+            type="button" 
+            onClick={() => {
+              const url = process.env.NEXT_PUBLIC_SUPABASE_URL ? "DETECTED" : "MISSING";
+              const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "DETECTED" : "MISSING";
+              alert(`Debug Info:\nURL: ${url}\nKey: ${key}`);
+            }}
+            style={{ 
+              background: 'none', 
+              border: 'none', 
+              color: '#ccc', 
+              fontSize: '10px', 
+              marginTop: '10px',
+              cursor: 'pointer'
+            }}
+          >
+            Check Configuration Status
+          </button>
         </div>
       </div>
     </div>
