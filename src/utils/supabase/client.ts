@@ -6,11 +6,15 @@ export function createClient() {
 
   // If credentials are missing, return a dummy client that doesn't throw on common methods
   if (!supabaseUrl || !supabaseKey) {
-    console.warn("Supabase credentials missing. Returning dummy client.");
+    const missing = !supabaseUrl && !supabaseKey ? "URL and Key" : !supabaseUrl ? "URL" : "Key";
+    console.warn(`Supabase ${missing} missing. Returning dummy client.`);
     return {
       auth: {
         getUser: async () => ({ data: { user: null }, error: null }),
-        signInWithPassword: async () => ({ data: { user: null }, error: new Error("Supabase not configured") }),
+        signInWithPassword: async () => ({ 
+          data: { user: null }, 
+          error: new Error(`Supabase ${missing} not configured in Vercel settings`) 
+        }),
         signOut: async () => ({ error: null }),
         onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
       },
