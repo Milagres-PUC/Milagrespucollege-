@@ -33,7 +33,7 @@ export default function GalleryManagement() {
       
       if (error) throw error;
 
-      const imageUrls = data.map(file => ({
+      const imageUrls = (data || []).map((file: any) => ({
         name: file.name,
         url: supabase.storage.from('images').getPublicUrl(file.name).data.publicUrl,
         created_at: file.created_at
