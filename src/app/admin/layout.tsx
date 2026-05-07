@@ -10,8 +10,9 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const hasEnvVars = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = hasEnvVars ? createClient() : null;
+  const { data: { user } } = supabase ? await supabase.auth.getUser() : { data: { user: null } };
   
   const headersList = headers();
   const fullPath = headersList.get('x-pathname') || '';
