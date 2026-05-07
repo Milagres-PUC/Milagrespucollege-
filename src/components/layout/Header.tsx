@@ -3,12 +3,32 @@
 import Link from 'next/link';
 import { Mail, Phone, Menu, X } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
 import Image from 'next/image';
 import styles from './Header.module.css';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState('Admissions Open for 2026–2027 • Apply Now for Science, Commerce, and Arts Streams • Better Education for a Better World');
+  const supabase = createClient();
+
+  useEffect(() => {
+    async function fetchAnnouncement() {
+      const { data, error } = await supabase
+        .from('announcements')
+        .select('content')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+      
+      if (data && !error) {
+        setAnnouncement(data.content);
+      }
+    }
+    fetchAnnouncement();
+  }, [supabase]);
 
   const navLinks = [
     { title: 'Home', path: '/' },
@@ -111,7 +131,7 @@ export default function Header() {
       <div className={styles.tickerBar}>
         <div className={styles.tickerHeader}>ANNOUNCEMENT:</div>
         <div className={styles.marquee}>
-          <p>Admissions Open for 2026–2027 • Apply Now for Science, Commerce, and Arts Streams • Better Education for a Better World</p>
+          <p>{announcement}</p>
         </div>
       </div>
     </header>

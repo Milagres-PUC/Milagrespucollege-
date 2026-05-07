@@ -24,10 +24,14 @@ export default function Sidebar() {
 
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
-    { name: 'User Management', icon: Users, path: '/admin/users' },
+    { name: 'Announcements', icon: School, path: '/admin/announcements' },
     { name: 'News & Updates', icon: Newspaper, path: '/admin/news' },
+    { name: 'Events', icon: Newspaper, path: '/admin/events' },
+    { name: 'Academic Excellence', icon: School, path: '/admin/excellence' },
+    { name: 'Faculty', icon: Users, path: '/admin/faculty' },
     { name: 'Gallery', icon: ImageIcon, path: '/admin/gallery' },
-    { name: 'Settings', icon: Settings, path: '/admin/settings' },
+    { name: 'User Inquiries', icon: Users, path: '/admin/inquiries' },
+    { name: 'User Management', icon: Users, path: '/admin/users' },
   ];
 
   const handleLogout = async () => {

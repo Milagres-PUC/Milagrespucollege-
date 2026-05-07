@@ -1,19 +1,38 @@
 import Link from 'next/link';
 import { Calendar } from 'lucide-react';
+import { createClient } from '@/utils/supabase/server';
 import styles from './NewsEvents.module.css';
+import Image from 'next/image';
 
-export default function NewsEvents() {
-  const news = [
-    { title: 'Annual Sports Day 2026', desc: 'Join us for a day of athletic excellence and team spirit.', imgClass: styles.newsImg1 },
-    { title: 'Science Exhibition', desc: 'Exploring innovation through interactive student projects.', imgClass: styles.newsImg2 },
-    { title: 'Career Guidance Seminar', desc: 'Expert speakers help students navigate their future career paths.', imgClass: styles.newsImg3 },
+export default async function NewsEvents() {
+  const supabase = createClient();
+
+  // Fetch News
+  const { data: newsData } = await supabase
+    .from('news')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+    .limit(3);
+
+  // Fetch Events
+  const { data: eventsData } = await supabase
+    .from('events')
+    .select('*')
+    .order('created_at', { ascending: true })
+    .limit(4);
+
+  const news = newsData || [
+    { title: 'Annual Sports Day 2026', content: 'Join us for a day of athletic excellence and team spirit.', image_url: null, id: '1' },
+    { title: 'Science Exhibition', content: 'Exploring innovation through interactive student projects.', image_url: null, id: '2' },
+    { title: 'Career Guidance Seminar', content: 'Expert speakers help students navigate their future career paths.', image_url: null, id: '3' },
   ];
 
-  const events = [
-    { date: '15 MAY', title: 'Admissions Deadline' },
-    { date: '01 JUN', title: 'Orientation Program' },
-    { date: '05 JUN', title: 'Classes Commence' },
-    { date: '15 AUG', title: 'Independence Day Celebration' },
+  const events = eventsData || [
+    { event_date: '15 MAY', title: 'Admissions Deadline', id: 'e1' },
+    { event_date: '01 JUN', title: 'Orientation Program', id: 'e2' },
+    { event_date: '05 JUN', title: 'Classes Commence', id: 'e3' },
+    { event_date: '15 AUG', title: 'Independence Day Celebration', id: 'e4' },
   ];
 
   return (
@@ -26,14 +45,20 @@ export default function NewsEvents() {
             <h3 className={styles.headerTitle}>LATEST NEWS</h3>
           </div>
           <div className={styles.newsList}>
-            {news.map((item, index) => (
-              <div key={index} className={styles.newsCard}>
-                <div className={`${styles.newsImg} ${item.imgClass}`}>
-                  <span>Photo {index + 1}</span>
+            {news.map((item: any, index: number) => (
+              <div key={item.id} className={styles.newsCard}>
+                <div className={styles.newsImg}>
+                  {item.image_url ? (
+                    <Image src={item.image_url} alt={item.title} fill style={{ objectFit: 'cover' }} />
+                  ) : (
+                    <div className={styles.placeholderImg}>
+                      <span>News Image</span>
+                    </div>
+                  )}
                 </div>
                 <div className={styles.newsContent}>
                   <h4 className={styles.newsTitle}>{item.title}</h4>
-                  <p className={styles.newsDesc}>{item.desc}</p>
+                  <p className={styles.newsDesc}>{item.content}</p>
                 </div>
               </div>
             ))}
@@ -46,11 +71,11 @@ export default function NewsEvents() {
             <h3 className={styles.headerTitle}>UPCOMING EVENTS</h3>
           </div>
           <div className={styles.eventsList}>
-            {events.map((event, index) => (
-              <div key={index} className={styles.eventCard}>
+            {events.map((event: any) => (
+              <div key={event.id} className={styles.eventCard}>
                 <div className={styles.eventDate}>
                   <Calendar size={18} />
-                  <span>{event.date}</span>
+                  <span>{event.event_date}</span>
                 </div>
                 <div className={styles.eventDetail}>
                   <h4>{event.title}</h4>

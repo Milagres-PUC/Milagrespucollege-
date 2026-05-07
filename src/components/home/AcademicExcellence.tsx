@@ -1,15 +1,22 @@
 import Image from 'next/image';
 import styles from './AcademicExcellence.module.css';
 import { Trophy } from 'lucide-react';
+import { createClient } from '@/utils/supabase/server';
 
-export default function AcademicExcellence() {
-  const students = [
-    { name: 'Aarav Sharma', designation: 'Science', score: '580' },
-    { name: 'Priya Patel', designation: 'Commerce', score: '575' },
-    { name: 'Neha Gupta', designation: 'Arts', score: '560' },
-    { name: 'Rohan Kumar', designation: 'Science', score: '555' },
-    { name: 'Divya Singh', designation: 'Commerce', score: '540' },
-    { name: 'Amit Verma', designation: 'Science', score: '530' },
+export default async function AcademicExcellence() {
+  const supabase = createClient();
+  const { data: studentsData } = await supabase
+    .from('excellence_hall')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const students = studentsData || [
+    { student_name: 'Aarav Sharma', category: 'Science', score_achievement: '580', id: '1' },
+    { student_name: 'Priya Patel', category: 'Commerce', score_achievement: '575', id: '2' },
+    { student_name: 'Neha Gupta', category: 'Arts', score_achievement: '560', id: '3' },
+    { student_name: 'Rohan Kumar', category: 'Science', score_achievement: '555', id: '4' },
+    { student_name: 'Divya Singh', category: 'Commerce', score_achievement: '540', id: '5' },
+    { student_name: 'Amit Verma', category: 'Science', score_achievement: '530', id: '6' },
   ];
 
   return (
@@ -18,23 +25,22 @@ export default function AcademicExcellence() {
         <h2 className={styles.sectionTitle}>Hall of Academic Excellence</h2>
         
         <div className={styles.studentsGrid}>
-          {students.map((student, index) => (
-            <div key={index} className={styles.studentCard}>
+          {students.map((student: any) => (
+            <div key={student.id} className={styles.studentCard}>
               <div className={styles.imgWrapper}>
-                {/* Fallback avatar since we don't have real images yet */}
                 <Image 
-                  src={`https://ui-avatars.com/api/?name=${student.name.replace(' ', '+')}&background=random&size=150`} 
-                  alt={student.name} 
+                  src={student.image_url || `https://ui-avatars.com/api/?name=${student.student_name.replace(' ', '+')}&background=random&size=150`} 
+                  alt={student.student_name} 
                   width={120} 
                   height={120}
                   className={styles.studentImg}
-                  unoptimized
+                  unoptimized={!student.image_url}
                 />
                 <div className={styles.coloredRing}></div>
               </div>
-              <p className={styles.studentName}>{student.name}</p>
-              <p className={styles.studentDesig}>~ {student.designation} ~</p>
-              <div className={styles.scoreBadge}>{student.score}</div>
+              <p className={styles.studentName}>{student.student_name}</p>
+              <p className={styles.studentDesig}>~ {student.category} ~</p>
+              <div className={styles.scoreBadge}>{student.score_achievement}</div>
             </div>
           ))}
         </div>

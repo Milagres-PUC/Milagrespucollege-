@@ -1,15 +1,22 @@
 import { Metadata } from 'next';
+import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
   title: 'Faculty | Milagres PU College',
 };
 
-export default function FacultyPage() {
-  const faculty = [
-    { name: 'Dr. Ramesh Kumar', department: 'Physics', qualification: 'M.Sc, Ph.D.' },
-    { name: 'Prof. Sunita Sharma', department: 'Chemistry', qualification: 'M.Sc, B.Ed.' },
-    { name: 'Mr. Anil Dsouza', department: 'Commerce', qualification: 'M.Com, NET' },
-    { name: 'Ms. Rekha', department: 'Arts', qualification: 'M.A, B.Ed.' },
+export default async function FacultyPage() {
+  const supabase = createClient();
+  const { data: facultyData } = await supabase
+    .from('faculty')
+    .select('*')
+    .order('order_index', { ascending: true });
+
+  const faculty = facultyData || [
+    { name: 'Dr. Ramesh Kumar', department: 'Physics', designation: 'Professor', id: '1' },
+    { name: 'Prof. Sunita Sharma', department: 'Chemistry', designation: 'Professor', id: '2' },
+    { name: 'Mr. Anil Dsouza', department: 'Commerce', designation: 'Lecturer', id: '3' },
+    { name: 'Ms. Rekha', department: 'Arts', designation: 'Lecturer', id: '4' },
   ];
 
   return (
@@ -20,14 +27,14 @@ export default function FacultyPage() {
       </div>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-        {faculty.map((member, index) => (
-          <div key={index} style={{ padding: '2rem', background: 'var(--primary-white)', borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textAlign: 'center' }}>
+        {faculty.map((member: any) => (
+          <div key={member.id} style={{ padding: '2rem', background: 'var(--primary-white)', borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textAlign: 'center' }}>
             <div style={{ width: '80px', height: '80px', backgroundColor: 'var(--primary-yellow)', borderRadius: '50%', margin: '0 auto 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary-dark-blue)' }}>
               {member.name.charAt(0)}
             </div>
             <h3 style={{ marginBottom: '0.5rem', color: 'var(--primary-dark-blue)' }}>{member.name}</h3>
             <p style={{ color: 'var(--primary-red)', fontWeight: '600', marginBottom: '0.5rem' }}>{member.department}</p>
-            <p style={{ fontSize: '0.9rem', color: '#666' }}>{member.qualification}</p>
+            <p style={{ fontSize: '0.9rem', color: '#666' }}>{member.designation}</p>
           </div>
         ))}
       </div>

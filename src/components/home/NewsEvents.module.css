@@ -53,18 +53,24 @@
 }
 
 .newsImg {
-  width: 120px;
+  position: relative;
+  width: 140px;
   min-height: 100px;
+  background-color: #eee;
+  flex-shrink: 0;
+}
+
+.placeholderImg {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #d88989;
-  color: rgba(255,255,255,0.7);
-  font-weight: bold;
+  color: #999;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem;
 }
-
-.newsImg2 { background-color: #89a9d8; }
-.newsImg3 { background-color: #89d89d; }
 
 .newsContent {
   padding: 1rem 1.5rem;
