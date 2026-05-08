@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Mail, Phone, Menu, X } from 'lucide-react';
+import { Mail, Phone, Menu, X, ChevronDown } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -10,6 +10,7 @@ import styles from './Header.module.css';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState('Admissions Open for 2026–2027 • Apply Now for Science, Commerce, and Arts Streams • Better Education for a Better World');
   const supabase = createClient();
 
@@ -33,13 +34,36 @@ export default function Header() {
   const navLinks = [
     { title: 'Home', path: '/' },
     { title: 'About Us', path: '/about-us' },
-    { title: 'Academics', path: '/academics' },
-    { title: 'Faculty', path: '/faculty' },
+    { 
+      title: 'Academics', 
+      path: '#',
+      dropdown: [
+        { title: 'Courses', path: '/academics/courses' },
+        { title: 'Faculty', path: '/faculty' },
+        { title: 'Facilities', path: '/facilities' },
+      ]
+    },
+    { 
+      title: 'Admissions', 
+      path: '#',
+      dropdown: [
+        { title: 'Admission Process', path: '/admissions/process' },
+        { title: 'Prospectus', path: '/admissions/prospectus' },
+      ]
+    },
+    { title: 'Careers', path: '/careers' },
     { title: 'Gallery', path: '/gallery' },
-    { title: 'Facilities', path: '/facilities' },
     { title: 'News', path: '/news' },
     { title: 'Contact Us', path: '/contact-us' },
   ];
+
+  const toggleDropdown = (title: string) => {
+    if (activeDropdown === title) {
+      setActiveDropdown(null);
+    } else {
+      setActiveDropdown(title);
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -89,10 +113,27 @@ export default function Header() {
           <nav className={styles.desktopNav}>
             <ul className={styles.navLinks}>
               {navLinks.map((link) => (
-                <li key={link.title}>
-                  <Link href={link.path} className={styles.navLink}>
-                    {link.title}
-                  </Link>
+                <li key={link.title} className={link.dropdown ? styles.hasDropdown : ''}>
+                  {link.dropdown ? (
+                    <div className={styles.dropdownTrigger}>
+                      <span className={styles.navLink}>
+                        {link.title} <ChevronDown size={14} />
+                      </span>
+                      <ul className={styles.dropdownMenu}>
+                        {link.dropdown.map((subItem) => (
+                          <li key={subItem.title}>
+                            <Link href={subItem.path} className={styles.dropdownItem}>
+                              {subItem.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <Link href={link.path} className={styles.navLink}>
+                      {link.title}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -113,14 +154,41 @@ export default function Header() {
         <nav className={styles.mobileNav}>
           <ul className={styles.mobileNavLinks}>
             {navLinks.map((link) => (
-              <li key={link.title}>
-                <Link
-                  href={link.path}
-                  className={styles.mobileNavLink}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.title}
-                </Link>
+              <li key={link.title} className={link.dropdown ? styles.mobileHasDropdown : ''}>
+                {link.dropdown ? (
+                  <>
+                    <div 
+                      className={styles.mobileDropdownTrigger}
+                      onClick={() => toggleDropdown(link.title)}
+                    >
+                      <span>{link.title}</span>
+                      <ChevronDown size={20} className={activeDropdown === link.title ? styles.rotate : ''} />
+                    </div>
+                    {activeDropdown === link.title && (
+                      <ul className={styles.mobileSubLinks}>
+                        {link.dropdown.map((subItem) => (
+                          <li key={subItem.title}>
+                            <Link
+                              href={subItem.path}
+                              className={styles.mobileSubLink}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {subItem.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={link.path}
+                    className={styles.mobileNavLink}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.title}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

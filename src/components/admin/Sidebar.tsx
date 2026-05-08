@@ -12,7 +12,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  School
+  School,
+  FileText
 } from 'lucide-react';
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -30,6 +31,7 @@ export default function Sidebar() {
     { name: 'Academic Excellence', icon: School, path: '/admin/excellence' },
     { name: 'Faculty', icon: Users, path: '/admin/faculty' },
     { name: 'Gallery', icon: ImageIcon, path: '/admin/gallery' },
+    { name: 'Prospectus', icon: FileText, path: '/admin/prospectus' },
     { name: 'User Inquiries', icon: Users, path: '/admin/inquiries' },
     { name: 'User Management', icon: Users, path: '/admin/users' },
   ];
