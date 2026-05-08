@@ -22,24 +22,44 @@ export default function AnnouncementsManagement() {
       .select('*')
       .order('created_at', { ascending: false });
     
-    if (!error) setAnnouncements(data || []);
+    if (error) {
+      console.error('Error fetching announcements:', error);
+      alert('Error loading announcements: ' + error.message);
+    } else {
+      setAnnouncements(data || []);
+    }
     setLoading(false);
   };
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newContent.trim()) return;
+    console.log('handleAdd triggered with content:', newContent);
+    
+    if (!newContent.trim()) {
+      alert('Please enter announcement content');
+      return;
+    }
 
     setSaving(true);
-    const { error } = await supabase
-      .from('announcements')
-      .insert([{ content: newContent, is_active: true }]);
-    
-    if (!error) {
-      setNewContent('');
-      fetchAnnouncements();
+    try {
+      const { error } = await supabase
+        .from('announcements')
+        .insert([{ content: newContent, is_active: true }]);
+      
+      if (error) {
+        console.error('Error adding announcement:', error);
+        alert('Failed to add announcement: ' + error.message);
+      } else {
+        setNewContent('');
+        fetchAnnouncements();
+        alert('Announcement added successfully!');
+      }
+    } catch (err: any) {
+      console.error('Unexpected error:', err);
+      alert('An unexpected error occurred: ' + err.message);
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
   };
 
   const toggleActive = async (id: string, current: boolean) => {
@@ -78,10 +98,23 @@ export default function AnnouncementsManagement() {
           <button 
             type="submit" 
             disabled={saving}
-            style={{ backgroundColor: 'var(--primary-dark-blue)', color: 'white', padding: '0.8rem 1.5rem', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            className={styles.submitBtn}
+            style={{ 
+              backgroundColor: saving ? '#ccc' : 'var(--primary-dark-blue)', 
+              color: 'white', 
+              padding: '0.8rem 1.5rem', 
+              borderRadius: '5px', 
+              border: 'none', 
+              cursor: saving ? 'not-allowed' : 'pointer', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.5rem',
+              transition: 'all 0.2s ease',
+              opacity: saving ? 0.7 : 1
+            }}
           >
             {saving ? <Loader2 size={18} className="spin" /> : <Plus size={18} />}
-            <span>Add</span>
+            <span>{saving ? 'Adding...' : 'Add'}</span>
           </button>
         </form>
       </div>

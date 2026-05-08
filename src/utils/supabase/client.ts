@@ -26,6 +26,12 @@ export function createClient() {
           getPublicUrl: () => ({ data: { publicUrl: '' } }),
         }),
       },
+      from: () => ({
+        select: () => ({ order: () => ({ limit: () => ({ single: async () => ({ data: null, error: new Error("Supabase not configured") }) }), data: [], error: null }), data: [], error: null }),
+        insert: async () => ({ data: null, error: new Error("Supabase not configured") }),
+        update: () => ({ eq: async () => ({ data: null, error: new Error("Supabase not configured") }) }),
+        delete: () => ({ eq: async () => ({ data: null, error: new Error("Supabase not configured") }) }),
+      })
     } as any;
   }
 
