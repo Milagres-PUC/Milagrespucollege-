@@ -98,7 +98,6 @@ export default function AnnouncementsManagement() {
           <button 
             type="submit" 
             disabled={saving}
-            className={styles.submitBtn}
             style={{ 
               backgroundColor: saving ? '#ccc' : 'var(--primary-dark-blue)', 
               color: 'white', 
