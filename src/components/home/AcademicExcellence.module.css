@@ -67,7 +67,7 @@
   width: calc(100% + 10px);
   height: calc(100% + 10px);
   border-radius: 50%;
-  background: conic-gradient(red, magenta, blue); /* Colorful ring mimicking design */
+  background: var(--primary-dark-blue); /* Solid blue ring */
   z-index: 1;
 }
 
