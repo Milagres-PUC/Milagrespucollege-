@@ -42,6 +42,15 @@ export default function AnnouncementsManagement() {
 
     setSaving(true);
     try {
+      // DEBUG: Check session before inserting
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      console.log('Current Session:', session);
+      
+      if (!session) {
+        alert('You do not appear to be logged in! The Supabase client is acting as an anonymous user.');
+        // We will continue anyway to see if the query fails, but this is a huge clue.
+      }
+
       const { error } = await supabase
         .from('announcements')
         .insert([{ content: newContent, is_active: true }]);
