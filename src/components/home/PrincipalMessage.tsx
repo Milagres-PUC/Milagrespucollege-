@@ -32,7 +32,7 @@ export default function PrincipalMessage() {
           <div className={styles.imageWrapper}>
             <div className={styles.decorativeBox}></div>
             <Image 
-              src="/principal.png" 
+              src="/principal.jpg" 
               alt="Principal Melwin Dsouza" 
               width={400} 
               height={500}
