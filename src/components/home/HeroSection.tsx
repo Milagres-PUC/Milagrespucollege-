@@ -8,7 +8,7 @@ export default function HeroSection() {
       {/* Background Image using Next/Image for optimization */}
       <div className={styles.bgWrapper}>
         <Image
-          src="/hero-bg.png"
+          src="/hero-bg.jpg"
           alt="Milagres PU College Campus"
           fill
           priority
