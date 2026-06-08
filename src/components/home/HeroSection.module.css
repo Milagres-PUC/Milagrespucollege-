@@ -34,6 +34,7 @@
 }
 
 .heroTitle {
+  color: #B30101;
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1.2;
@@ -43,6 +44,7 @@
 }
 
 .heroSubtitle {
+  color: #B30101;
   font-size: 1.2rem;
   margin-bottom: 2rem;
   opacity: 0.9;
