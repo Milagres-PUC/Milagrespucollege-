@@ -23,8 +23,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(3, 7, 60, 0.6);
-  /* Dark Blue overlay */
+  background: linear-gradient(to bottom, rgba(3, 7, 60, 0.4), rgba(3, 7, 60, 0.9));
+  /* Dark Blue overlay gradient */
   z-index: -1;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .heroTitle {
-  color: #B30101;
+  color: #FFFFFF;
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1.2;
@@ -44,7 +44,7 @@
 }
 
 .heroSubtitle {
-  color: #B30101;
+  color: #FFFFFF;
   font-size: 1.2rem;
   margin-bottom: 2rem;
   opacity: 0.9;
