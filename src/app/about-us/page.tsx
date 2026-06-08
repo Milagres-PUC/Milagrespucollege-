@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import styles from './about-us.module.css';
+import AnimatedStats from './AnimatedStats';
 
 export const metadata: Metadata = {
   title: 'About Us | Milagres PU College',
@@ -83,24 +84,7 @@ export default function AboutUsPage() {
                 <strong>PCMB and PCMC</strong> in Science.
               </p>
             </div>
-            <div className={styles.overviewStats}>
-              <div className={styles.statBox}>
-                <span className={styles.statYear}>1848</span>
-                <span className={styles.statLabel}>Year Founded</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statYear}>175+</span>
-                <span className={styles.statLabel}>Years of Excellence</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statYear}>10</span>
-                <span className={styles.statLabel}>Sections Offered</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statYear}>Co-Ed</span>
-                <span className={styles.statLabel}>Since 2011</span>
-              </div>
-            </div>
+            <AnimatedStats />
           </div>
         </div>
       </section>
