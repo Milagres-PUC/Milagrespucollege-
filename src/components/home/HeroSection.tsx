@@ -19,9 +19,9 @@ export default function HeroSection() {
 
       <div className={`container ${styles.heroContent}`}>
         <h1 className={styles.heroTitle}>
-          MILAGRES<br />PRE-UNIVERSITY<br />COLLEGE
+          CREATE<br />BRIGHT FUTURES<br />TODAY
         </h1>
-        <p className={styles.heroSubtitle}>Better Education for better world.</p>
+        <p className={styles.heroSubtitle}>Better Education for better world</p>
 
         {/* URL will be added later by user as requested */}
         <Link href="#" className={`btn btn-primary ${styles.ctaBtn}`}>
