@@ -1,15 +1,19 @@
 .academicSection {
-  background-color: #050a2b; /* Dark navy background */
+  background-color: #f9fafc; /* Clean, light institutional background */
   padding: 5rem 0;
-  color: var(--primary-white);
+  color: var(--primary-dark-blue);
   text-align: center;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .sectionTitle {
   font-size: 2.2rem;
-  font-weight: 500;
+  font-weight: 800;
+  color: var(--primary-dark-blue);
   margin-bottom: 3.5rem;
-  font-family: serif; /* Classic look based on reference image */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .studentsGrid {
@@ -102,10 +106,11 @@
   justify-content: center;
   flex-direction: column;
   gap: 1.5rem;
-  background-color: var(--primary-white);
-  color: var(--primary-dark-blue);
-  padding: 2rem;
-  border-radius: 10px;
+  background-color: var(--primary-dark-blue);
+  color: var(--primary-white);
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 768px) {
@@ -116,17 +121,18 @@
 }
 
 .bannerText h3 {
-  font-size: 1.5rem;
-  font-family: serif;
+  font-size: 1.4rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
+  line-height: 1.4;
 }
 
 .bannerText p {
-  font-style: italic;
-  opacity: 0.9;
-  font-family: serif;
+  opacity: 0.85;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
 }
 
 .trophyIcon {
-  color: #D4AF37; /* Metallic Gold */
+  color: var(--primary-yellow);
 }
