@@ -23,25 +23,31 @@ export default async function AcademicExcellence() {
       <div className={`container ${styles.academicContainer}`}>
         <h2 className={styles.sectionTitle}>Hall of Academic Excellence</h2>
         
-        <div className={styles.studentsGrid}>
-          {students.map((student: any) => (
-            <div key={student.id} className={styles.studentCard}>
-              <div className={styles.imgWrapper}>
-                <Image 
-                  src={student.photo_url || `https://ui-avatars.com/api/?name=${student.student_name.replace(' ', '+')}&background=random&size=150`} 
-                  alt={student.student_name} 
-                  width={120} 
-                  height={120}
-                  className={styles.studentImg}
-                  unoptimized={!student.photo_url}
-                />
-                <div className={styles.coloredRing}></div>
+        <div className={styles.marqueeContainer}>
+          <div className={styles.marqueeContent}>
+            {[...Array(4)].map((_, setIdx) => (
+              <div key={setIdx} className={styles.cardSet}>
+                {students.map((student: any) => (
+                  <div key={`${setIdx}-${student.id}`} className={styles.studentCard}>
+                    <div className={styles.imgWrapper}>
+                      <Image 
+                        src={student.photo_url || `https://ui-avatars.com/api/?name=${student.student_name.replace(' ', '+')}&background=random&size=150`} 
+                        alt={student.student_name} 
+                        width={120} 
+                        height={120}
+                        className={styles.studentImg}
+                        unoptimized={!student.photo_url}
+                      />
+                      <div className={styles.coloredRing}></div>
+                    </div>
+                    <p className={styles.studentName}>{student.student_name}</p>
+                    <p className={styles.studentDesig}>~ {student.stream} ~</p>
+                    <div className={styles.scoreBadge}>{student.marks}</div>
+                  </div>
+                ))}
               </div>
-              <p className={styles.studentName}>{student.student_name}</p>
-              <p className={styles.studentDesig}>~ {student.stream} ~</p>
-              <div className={styles.scoreBadge}>{student.marks}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

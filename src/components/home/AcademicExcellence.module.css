@@ -16,30 +16,33 @@
   letter-spacing: 1.5px;
 }
 
-.studentsGrid {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1.5rem;
+.marqueeContainer {
+  width: 100%;
+  overflow: hidden;
   margin-bottom: 5rem;
-  overflow-x: auto;
-  padding-bottom: 2rem; /* Extra padding for the score badges and scrollbar */
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2rem; /* Extra padding for the score badges */
+  position: relative;
 }
 
-.studentsGrid::-webkit-scrollbar {
-  height: 8px;
+.marqueeContent {
+  display: flex;
+  width: max-content;
+  animation: scrollMarquee 30s linear infinite;
 }
-.studentsGrid::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+
+.marqueeContent:hover {
+  animation-play-state: paused;
 }
-.studentsGrid::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+
+.cardSet {
+  display: flex;
+  gap: 1.5rem;
+  padding-right: 1.5rem; /* Match the gap so the loop is perfectly seamless */
 }
-.studentsGrid::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); } /* 4 sets, so 1 set is 25% */
 }
 
 .studentCard {
