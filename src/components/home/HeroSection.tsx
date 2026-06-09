@@ -33,7 +33,7 @@ export default async function HeroSection() {
         <div className={styles.announcementBar}>
           <div className={styles.marqueeContainer}>
             <div className={styles.marqueeText}>
-              {announcements.map((ann, idx) => (
+              {announcements.map((ann: any, idx: number) => (
                 <span key={ann.id}>
                   <strong>{ann.title}:</strong> {ann.content}
                   {idx !== announcements.length - 1 && <span className={styles.separator}> | </span>}
