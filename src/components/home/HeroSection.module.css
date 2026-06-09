@@ -123,11 +123,32 @@
   width: 100%;
   z-index: 10;
   font-size: 0.95rem;
+  overflow: hidden;
+}
+
+.marqueeContainer {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .marqueeText {
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollMarquee 25s linear infinite;
+}
+
+.marqueeText:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .separator {

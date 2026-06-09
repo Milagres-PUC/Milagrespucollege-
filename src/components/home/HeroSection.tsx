@@ -31,15 +31,15 @@ export default async function HeroSection() {
 
       {announcements && announcements.length > 0 && (
         <div className={styles.announcementBar}>
-          <div className="container">
-            <marquee behavior="scroll" direction="left" className={styles.marqueeText}>
+          <div className={styles.marqueeContainer}>
+            <div className={styles.marqueeText}>
               {announcements.map((ann, idx) => (
                 <span key={ann.id}>
                   <strong>{ann.title}:</strong> {ann.content}
                   {idx !== announcements.length - 1 && <span className={styles.separator}> | </span>}
                 </span>
               ))}
-            </marquee>
+            </div>
           </div>
         </div>
       )}
