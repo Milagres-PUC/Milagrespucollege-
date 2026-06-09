@@ -115,6 +115,7 @@ export default function ExcellenceManagement() {
               </button>
               <div style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', border: '3px solid var(--primary-yellow)' }}>
                 {student.image_url ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={student.image_url} alt={student.student_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', color: '#ccc' }}>

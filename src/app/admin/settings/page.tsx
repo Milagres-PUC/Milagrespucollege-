@@ -142,13 +142,14 @@ export default function SettingsPage() {
 
         {/* Principal Message Settings */}
         <div className={styles.card}>
-          <h2 className={styles.cardTitle}>Principal's Desk</h2>
+          <h2 className={styles.cardTitle}>Principal&apos;s Desk</h2>
           
           <div className={styles.formRow}>
             <div className={styles.photoUploadSection}>
-              <label>Principal's Photo</label>
+              <label>Principal&apos;s Photo</label>
               <div className={styles.photoPreviewWrapper}>
                 {photoPreview ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={photoPreview} alt="Principal" className={styles.photoPreview} />
                 ) : (
                   <div className={styles.photoPlaceholder}><ImageIcon size={48} color="#ccc" /></div>
@@ -166,7 +167,7 @@ export default function SettingsPage() {
 
             <div className={styles.textDetailsSection}>
               <div className={styles.formGroup}>
-                <label htmlFor="principal_name">Principal's Name</label>
+                <label htmlFor="principal_name">Principal&apos;s Name</label>
                 <input
                   type="text"
                   id="principal_name"
