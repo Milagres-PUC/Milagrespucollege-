@@ -27,17 +27,7 @@ export default function AboutUsPage() {
     'Instill patriotic values and a sense of civic responsibility.',
   ];
 
-  const infrastructure = [
-    { icon: '🏛️', title: 'Spacious Classrooms', desc: 'Well-ventilated and well-lit classrooms designed for effective learning.' },
-    { icon: '🔬', title: 'Science Laboratories', desc: 'Fully equipped physics, chemistry, and biology labs for hands-on experiments.' },
-    { icon: '💻', title: 'Computer Lab', desc: 'Modern computer facilities with high-speed internet access for all students.' },
-    { icon: '📚', title: 'Library', desc: 'A well-stocked library with thousands of books, journals, and digital resources.' },
-    { icon: '📽️', title: 'Audio-Visual Facilities', desc: 'Smart classrooms with projectors and A/V equipment for interactive learning.' },
-    { icon: '🎭', title: 'Multipurpose Hall', desc: 'Spacious seminar and multipurpose halls for events, seminars, and gatherings.' },
-    { icon: '⚽', title: 'Sports Complex', desc: 'Outdoor and indoor sports and recreational facilities for balanced development.' },
-    { icon: '🛡️', title: 'Safe Campus', desc: 'A secure campus environment with CCTV surveillance and trained security staff.' },
-    { icon: '🧠', title: 'Counseling Services', desc: 'Professional guidance and counseling services for holistic student well-being.' },
-  ];
+
 
   return (
     <>
@@ -158,26 +148,6 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Infrastructure */}
-      <section className={`${styles.section} ${styles.infraSection}`} id="infrastructure">
-        <div className="container">
-          <div className={`${styles.sectionLabel} ${styles.sectionLabelLight}`}>Campus Facilities</div>
-          <h2 className={`${styles.sectionHeading} ${styles.sectionHeadingLight}`}>Infrastructure</h2>
-          <p className={`${styles.sectionSubheading} ${styles.sectionSubheadingLight}`}>
-            State-of-the-art facilities designed to support academic excellence and holistic development.
-          </p>
-
-          <div className={styles.infraGrid}>
-            {infrastructure.map((item, i) => (
-              <div key={i} className={styles.infraCard}>
-                <div className={styles.infraIcon}>{item.icon}</div>
-                <h3 className={styles.infraTitle}>{item.title}</h3>
-                <p className={styles.infraDesc}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }

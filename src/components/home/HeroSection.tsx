@@ -23,8 +23,7 @@ export default function HeroSection() {
         </h1>
         <p className={styles.heroSubtitle}>Better Education for better world</p>
 
-        {/* URL will be added later by user as requested */}
-        <Link href="#" className={`btn btn-primary ${styles.ctaBtn}`}>
+        <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdTwoN8ynyn7jfw2vXhzU3fWuWQNXiJmHYWJZIpr4TBgVcnmw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" className={`btn btn-primary ${styles.ctaBtn}`}>
           Admission Open
         </Link>
       </div>
