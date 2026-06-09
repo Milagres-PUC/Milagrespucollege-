@@ -83,6 +83,11 @@ export default async function NewsEvents() {
                 </div>
                 <div className={styles.eventDetail}>
                   <h4>{event.title}</h4>
+                  {event.description && (
+                    <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.2rem', lineHeight: '1.4' }}>
+                      {event.description.length > 30 ? event.description.substring(0, 30) + '...' : event.description}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
