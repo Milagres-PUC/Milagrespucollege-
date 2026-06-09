@@ -13,6 +13,7 @@ import {
   Loader2,
   ExternalLink
 } from 'lucide-react';
+import ImageCropperModal from '@/components/admin/ImageCropperModal';
 
 interface GalleryItem {
   name: string;
@@ -24,6 +25,7 @@ export default function GalleryManagement() {
   const [images, setImages] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [cropImageFile, setCropImageFile] = useState<File | null>(null);
   const supabase = createClient();
 
   const fetchImages = useCallback(async () => {
@@ -53,10 +55,14 @@ export default function GalleryManagement() {
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
+    setCropImageFile(e.target.files[0]);
+    // reset input so the same file can be selected again if canceled
+    e.target.value = '';
+  };
 
+  const executeUpload = async (file: File) => {
     setUploading(true);
-    const file = e.target.files[0];
-    const fileExt = file.name.split('.').pop();
+    const fileExt = file.name.split('.').pop() || 'jpg';
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${fileName}`;
 
@@ -139,6 +145,18 @@ export default function GalleryManagement() {
             </div>
           ))}
         </div>
+      )}
+      
+      {cropImageFile && (
+        <ImageCropperModal
+          imageFile={cropImageFile}
+          aspectRatio={4 / 3}
+          onCropComplete={(croppedFile) => {
+            setCropImageFile(null);
+            executeUpload(croppedFile);
+          }}
+          onCancel={() => setCropImageFile(null)}
+        />
       )}
     </div>
   );

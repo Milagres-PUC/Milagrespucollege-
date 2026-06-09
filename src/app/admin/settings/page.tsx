@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import styles from './settings.module.css';
 import { Save, Loader2, Image as ImageIcon } from 'lucide-react';
+import ImageCropperModal from '@/components/admin/ImageCropperModal';
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ export default function SettingsPage() {
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [cropImageFile, setCropImageFile] = useState<File | null>(null);
 
   const supabase = createClient();
 
@@ -55,9 +57,14 @@ export default function SettingsPage() {
         setMessage({ text: 'File size must be under 5MB.', type: 'error' });
         return;
       }
-      setPhotoFile(file);
-      setPhotoPreview(URL.createObjectURL(file));
+      setCropImageFile(file);
     }
+  };
+
+  const handleCropComplete = (croppedFile: File) => {
+    setPhotoFile(croppedFile);
+    setPhotoPreview(URL.createObjectURL(croppedFile));
+    setCropImageFile(null);
   };
 
   const uploadPhoto = async () => {
@@ -112,6 +119,14 @@ export default function SettingsPage() {
 
   return (
     <div className={styles.container}>
+      {cropImageFile && (
+        <ImageCropperModal
+          imageFile={cropImageFile}
+          aspectRatio={1}
+          onCropComplete={handleCropComplete}
+          onCancel={() => setCropImageFile(null)}
+        />
+      )}
       <div className={styles.header}>
         <h1 className={styles.title}>Global Settings</h1>
         <p className={styles.subtitle}>Manage global website content like Admission forms and Principal message.</p>

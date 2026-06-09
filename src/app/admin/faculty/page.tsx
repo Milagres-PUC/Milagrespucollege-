@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { Plus, Trash2, Loader2, Users, User } from 'lucide-react';
+import ImageCropperModal from '@/components/admin/ImageCropperModal';
 
 export default function FacultyManagement() {
   const [faculty, setFaculty] = useState<any[]>([]);
@@ -19,6 +20,7 @@ export default function FacultyManagement() {
   });
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [cropImageFile, setCropImageFile] = useState<File | null>(null);
 
   const supabase = createClient();
 
@@ -166,7 +168,7 @@ export default function FacultyManagement() {
                 accept="image/*"
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
-                    setPhotoFile(e.target.files[0]);
+                    setCropImageFile(e.target.files[0]);
                   }
                 }}
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
@@ -190,6 +192,18 @@ export default function FacultyManagement() {
             </form>
           </div>
         </div>
+      )}
+      {/* Image Cropper */}
+      {cropImageFile && (
+        <ImageCropperModal
+          imageFile={cropImageFile}
+          aspectRatio={1}
+          onCropComplete={(croppedFile) => {
+            setPhotoFile(croppedFile);
+            setCropImageFile(null);
+          }}
+          onCancel={() => setCropImageFile(null)}
+        />
       )}
     </div>
   );
