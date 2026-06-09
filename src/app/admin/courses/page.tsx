@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { Plus, Trash2, Loader2, BookOpen } from 'lucide-react';
+import { Plus, Trash2, Edit2, Loader2, BookOpen } from 'lucide-react';
 
 export default function CoursesManagement() {
   const [courses, setCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -37,12 +38,31 @@ export default function CoursesManagement() {
     e.preventDefault();
     setSaving(true);
     
-    const { error } = await supabase
-      .from('courses')
-      .insert([formData]);
+    let error;
+    if (editId) {
+      const { error: updateError } = await supabase
+        .from('courses')
+        .update({
+          name: formData.name,
+          stream: formData.stream,
+          description: formData.description
+        })
+        .eq('id', editId);
+      error = updateError;
+    } else {
+      const { error: insertError } = await supabase
+        .from('courses')
+        .insert([{
+          name: formData.name,
+          stream: formData.stream,
+          description: formData.description
+        }]);
+      error = insertError;
+    }
     
     if (!error) {
       setFormData({ name: '', stream: 'Science', description: '' });
+      setEditId(null);
       setIsModalOpen(false);
       fetchCourses();
     } else {
@@ -65,7 +85,11 @@ export default function CoursesManagement() {
           <h1 style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>Courses Management</h1>
         </div>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setFormData({ name: '', stream: 'Science', description: '' });
+            setEditId(null);
+            setIsModalOpen(true);
+          }}
           style={{ backgroundColor: 'var(--primary-dark-blue)', color: 'white', padding: '0.8rem 1.5rem', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
         >
           <Plus size={18} />
@@ -79,12 +103,26 @@ export default function CoursesManagement() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
           {courses.map((course: any) => (
             <div key={course.id} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', position: 'relative' }}>
-              <button 
-                onClick={() => handleDelete(course.id)}
-                style={{ position: 'absolute', top: '15px', right: '15px', color: '#ff4d4d', background: 'none', border: 'none', cursor: 'pointer' }}
-              >
-                <Trash2 size={18} />
-              </button>
+              <div style={{ position: 'absolute', top: '15px', right: '15px', display: 'flex', gap: '0.5rem' }}>
+                <button 
+                  onClick={() => {
+                    setFormData({ name: course.name, stream: course.stream, description: course.description });
+                    setEditId(course.id);
+                    setIsModalOpen(true);
+                  }}
+                  style={{ color: '#007bff', background: 'none', border: 'none', cursor: 'pointer' }}
+                  title="Edit Course"
+                >
+                  <Edit2 size={18} />
+                </button>
+                <button 
+                  onClick={() => handleDelete(course.id)}
+                  style={{ color: '#ff4d4d', background: 'none', border: 'none', cursor: 'pointer' }}
+                  title="Delete Course"
+                >
+                  <Trash2 size={18} />
+                </button>
+              </div>
               <span style={{ fontSize: '0.8rem', backgroundColor: 'var(--primary-yellow)', color: '#333', padding: '0.2rem 0.6rem', borderRadius: '10px', fontWeight: 'bold', display: 'inline-block', marginBottom: '0.5rem' }}>
                 {course.stream}
               </span>
@@ -100,7 +138,7 @@ export default function CoursesManagement() {
       {isModalOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '10px', width: '500px', maxWidth: '90%' }}>
-            <h2 style={{ marginBottom: '1.5rem' }}>Add Course</h2>
+            <h2 style={{ marginBottom: '1.5rem' }}>{editId ? 'Edit Course' : 'Add Course'}</h2>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <input 
                 type="text" 
