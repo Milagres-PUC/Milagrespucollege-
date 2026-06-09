@@ -7,6 +7,7 @@ import { Plus, Trash2, Save, Loader2, Megaphone } from 'lucide-react';
 export default function AnnouncementsManagement() {
   const [announcements, setAnnouncements] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -24,7 +25,6 @@ export default function AnnouncementsManagement() {
     
     if (error) {
       console.error('Error fetching announcements:', error);
-      alert('Error loading announcements: ' + error.message);
     } else {
       setAnnouncements(data || []);
     }
@@ -33,38 +33,26 @@ export default function AnnouncementsManagement() {
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('handleAdd triggered with content:', newContent);
     
-    if (!newContent.trim()) {
-      alert('Please enter announcement content');
+    if (!newTitle.trim() || !newContent.trim()) {
+      alert('Please enter both title and content.');
       return;
     }
 
     setSaving(true);
     try {
-      // DEBUG: Check session before inserting
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      console.log('Current Session:', session);
-      
-      if (!session) {
-        alert('You do not appear to be logged in! The Supabase client is acting as an anonymous user.');
-        // We will continue anyway to see if the query fails, but this is a huge clue.
-      }
-
       const { error } = await supabase
         .from('announcements')
-        .insert([{ content: newContent, is_active: true }]);
+        .insert([{ title: newTitle, content: newContent, is_active: true }]);
       
       if (error) {
-        console.error('Error adding announcement:', error);
         alert('Failed to add announcement: ' + error.message);
       } else {
+        setNewTitle('');
         setNewContent('');
         fetchAnnouncements();
-        alert('Announcement added successfully!');
       }
     } catch (err: any) {
-      console.error('Unexpected error:', err);
       alert('An unexpected error occurred: ' + err.message);
     } finally {
       setSaving(false);
@@ -96,6 +84,14 @@ export default function AnnouncementsManagement() {
       <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', marginBottom: '2rem' }}>
         <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Add New Announcement</h2>
         <form onSubmit={handleAdd} style={{ display: 'flex', gap: '1rem' }}>
+          <input 
+            type="text" 
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            placeholder="Announcement Title"
+            style={{ width: '200px', padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
+            required
+          />
           <input 
             type="text" 
             value={newContent}
@@ -143,7 +139,7 @@ export default function AnnouncementsManagement() {
                   style={{ width: '20px', height: '20px' }}
                 />
                 <span style={{ color: item.is_active ? 'black' : '#999', textDecoration: item.is_active ? 'none' : 'line-through' }}>
-                  {item.content}
+                  <strong>{item.title}</strong>: {item.content}
                 </span>
               </div>
               <button 

@@ -18,6 +18,8 @@ export default function FacultyManagement() {
     order_index: 0
   });
 
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+
   const supabase = createClient();
 
   useEffect(() => {
@@ -28,24 +30,53 @@ export default function FacultyManagement() {
     const { data, error } = await supabase
       .from('faculty')
       .select('*')
-      .order('order_index', { ascending: true });
+      .order('created_at', { ascending: false });
     
     if (!error) setFaculty(data || []);
     setLoading(false);
+  };
+
+  const uploadPhoto = async () => {
+    if (!photoFile) return formData.image_url;
+
+    const fileExt = photoFile.name.split('.').pop();
+    const fileName = `faculty_${Date.now()}.${fileExt}`;
+    const filePath = `faculty/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('images')
+      .upload(filePath, photoFile, { upsert: true });
+
+    if (uploadError) throw uploadError;
+
+    const { data } = supabase.storage.from('images').getPublicUrl(filePath);
+    return data.publicUrl;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     
-    const { error } = await supabase
-      .from('faculty')
-      .insert([formData]);
-    
-    if (!error) {
-      setFormData({ name: '', designation: '', department: '', image_url: '', order_index: 0 });
-      setIsModalOpen(false);
-      fetchFaculty();
+    try {
+      const photoUrl = await uploadPhoto();
+      
+      const insertData = { ...formData, image_url: photoUrl };
+      delete (insertData as any).order_index; // Remove this if it's still in formData
+
+      const { error } = await supabase
+        .from('faculty')
+        .insert([insertData]);
+      
+      if (!error) {
+        setFormData({ name: '', designation: '', department: '', image_url: '', order_index: 0 });
+        setPhotoFile(null);
+        setIsModalOpen(false);
+        fetchFaculty();
+      } else {
+        alert('Failed to save: ' + error.message);
+      }
+    } catch (err: any) {
+      alert('Error: ' + err.message);
     }
     setSaving(false);
   };
@@ -129,17 +160,13 @@ export default function FacultyManagement() {
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               />
               <input 
-                type="text" 
-                placeholder="Image URL (optional)"
-                value={formData.image_url}
-                onChange={(e) => setFormData({...formData, image_url: e.target.value})}
-                style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
-              />
-              <input 
-                type="number" 
-                placeholder="Display Order (0, 1, 2...)"
-                value={formData.order_index}
-                onChange={(e) => setFormData({...formData, order_index: parseInt(e.target.value)})}
+                type="file" 
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setPhotoFile(e.target.files[0]);
+                  }
+                }}
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               />
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>

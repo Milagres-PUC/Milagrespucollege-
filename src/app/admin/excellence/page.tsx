@@ -18,6 +18,8 @@ export default function ExcellenceManagement() {
     image_url: ''
   });
 
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+
   const supabase = createClient();
 
   useEffect(() => {
@@ -34,19 +36,46 @@ export default function ExcellenceManagement() {
     setLoading(false);
   };
 
+  const uploadPhoto = async () => {
+    if (!photoFile) return formData.image_url;
+
+    const fileExt = photoFile.name.split('.').pop();
+    const fileName = `excellence_${Date.now()}.${fileExt}`;
+    const filePath = `excellence/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('images')
+      .upload(filePath, photoFile, { upsert: true });
+
+    if (uploadError) throw uploadError;
+
+    const { data } = supabase.storage.from('images').getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     
-    const { error } = await supabase
-      .from('excellence_hall')
-      .insert([formData]);
-    
-    if (!error) {
-      setFormData({ student_name: '', score_achievement: '', category: 'Science', image_url: '' });
-      setIsModalOpen(false);
-      fetchStudents();
+    try {
+      const photoUrl = await uploadPhoto();
+      
+      const { error } = await supabase
+        .from('excellence_hall')
+        .insert([{ ...formData, image_url: photoUrl }]);
+      
+      if (!error) {
+        setFormData({ student_name: '', score_achievement: '', category: 'Science', image_url: '' });
+        setPhotoFile(null);
+        setIsModalOpen(false);
+        fetchStudents();
+      } else {
+        alert('Failed to save: ' + error.message);
+      }
+    } catch (err: any) {
+      alert('Error: ' + err.message);
     }
+    
     setSaving(false);
   };
 
@@ -137,10 +166,13 @@ export default function ExcellenceManagement() {
                 <option value="Cultural">Cultural</option>
               </select>
               <input 
-                type="text" 
-                placeholder="Image URL (optional)"
-                value={formData.image_url}
-                onChange={(e) => setFormData({...formData, image_url: e.target.value})}
+                type="file" 
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setPhotoFile(e.target.files[0]);
+                  }
+                }}
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               />
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>

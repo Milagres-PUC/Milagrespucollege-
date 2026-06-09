@@ -13,7 +13,8 @@ import {
   ChevronLeft,
   ChevronRight,
   School,
-  FileText
+  FileText,
+  Briefcase
 } from 'lucide-react';
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -28,12 +29,16 @@ export default function Sidebar() {
     { name: 'Announcements', icon: School, path: '/admin/announcements' },
     { name: 'News & Updates', icon: Newspaper, path: '/admin/news' },
     { name: 'Events', icon: Newspaper, path: '/admin/events' },
+    { name: 'Courses', icon: School, path: '/admin/courses' },
     { name: 'Academic Excellence', icon: School, path: '/admin/excellence' },
     { name: 'Faculty', icon: Users, path: '/admin/faculty' },
+    { name: 'Facilities', icon: School, path: '/admin/facilities' },
+    { name: 'Careers', icon: Briefcase, path: '/admin/careers' },
     { name: 'Gallery', icon: ImageIcon, path: '/admin/gallery' },
     { name: 'Prospectus', icon: FileText, path: '/admin/prospectus' },
     { name: 'User Inquiries', icon: Users, path: '/admin/inquiries' },
     { name: 'User Management', icon: Users, path: '/admin/users' },
+    { name: 'Global Settings', icon: Settings, path: '/admin/settings' },
   ];
 
   const handleLogout = async () => {

@@ -11,7 +11,6 @@ export default async function NewsEvents() {
   const { data: newsData } = await supabase
     .from('news')
     .select('*')
-    .eq('is_published', true)
     .order('created_at', { ascending: false })
     .limit(3);
 

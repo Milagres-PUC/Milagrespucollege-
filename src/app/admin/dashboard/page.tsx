@@ -5,15 +5,16 @@ import { Users, Newspaper, Eye, TrendingUp, Activity } from 'lucide-react';
 export default async function Dashboard() {
   const supabase = createClient();
   
-  // Fetch some summary data (placeholder for now, you can connect to actual tables)
-  // const { count: userCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
-  // const { count: newsCount } = await supabase.from('news').select('*', { count: 'exact', head: true });
+  const { count: newsCount } = await supabase.from('news').select('*', { count: 'exact', head: true });
+  const { count: facultyCount } = await supabase.from('faculty').select('*', { count: 'exact', head: true });
+  const { count: coursesCount } = await supabase.from('courses').select('*', { count: 'exact', head: true });
+  const { count: facilitiesCount } = await supabase.from('facilities').select('*', { count: 'exact', head: true });
 
   const stats = [
-    { label: 'Total Users', value: '124', icon: Users, color: '#4d7cfe', change: '+12% from last month' },
-    { label: 'News Articles', value: '45', icon: Newspaper, color: '#ffbb00', change: '+5 new this week' },
-    { label: 'Site Visits', value: '1,280', icon: Eye, color: '#00d284', change: '+18% increase' },
-    { label: 'Active Sessions', value: '12', icon: Activity, color: '#ff4d4d', change: 'Currently online' },
+    { label: 'News Articles', value: newsCount || '0', icon: Newspaper, color: '#4d7cfe', change: 'Total published' },
+    { label: 'Faculty Members', value: facultyCount || '0', icon: Users, color: '#ffbb00', change: 'Total listed' },
+    { label: 'Courses Offered', value: coursesCount || '0', icon: Activity, color: '#00d284', change: 'Total streams' },
+    { label: 'Facilities', value: facilitiesCount || '0', icon: Eye, color: '#ff4d4d', change: 'Total listed' },
   ];
 
   return (

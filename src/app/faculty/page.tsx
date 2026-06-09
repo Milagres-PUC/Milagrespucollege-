@@ -10,7 +10,7 @@ export default async function FacultyPage() {
   const { data: facultyData } = await supabase
     .from('faculty')
     .select('*')
-    .order('order_index', { ascending: true });
+    .order('created_at', { ascending: false });
 
   const faculty = facultyData || [
     { name: 'Dr. Ramesh Kumar', department: 'Physics', designation: 'Professor', id: '1' },
@@ -30,7 +30,11 @@ export default async function FacultyPage() {
         {faculty.map((member: any) => (
           <div key={member.id} style={{ padding: '2rem', background: 'var(--primary-white)', borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textAlign: 'center' }}>
             <div style={{ width: '80px', height: '80px', backgroundColor: 'var(--primary-yellow)', borderRadius: '50%', margin: '0 auto 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary-dark-blue)' }}>
-              {member.name.charAt(0)}
+              {member.image_url ? (
+                <img src={member.image_url} alt={member.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+              ) : (
+                member.name.charAt(0)
+              )}
             </div>
             <h3 style={{ marginBottom: '0.5rem', color: 'var(--primary-dark-blue)' }}>{member.name}</h3>
             <p style={{ color: 'var(--primary-red)', fontWeight: '600', marginBottom: '0.5rem' }}>{member.department}</p>

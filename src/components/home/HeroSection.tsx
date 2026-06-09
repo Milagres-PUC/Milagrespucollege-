@@ -1,8 +1,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './HeroSection.module.css';
+import { createClient } from '@/utils/supabase/server';
 
-export default function HeroSection() {
+export default async function HeroSection() {
+  const supabase = createClient();
+  
+  const { data: settings } = await supabase.from('global_settings').select('*').eq('id', 1).single();
+  const admissionLink = settings?.admission_form_link || '#';
+
+  const { data: announcements } = await supabase
+    .from('announcements')
+    .select('*')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
+
   return (
     <section className={styles.heroSection}>
       {/* Background Image using Next/Image for optimization */}
@@ -17,13 +29,28 @@ export default function HeroSection() {
         <div className={styles.overlay}></div>
       </div>
 
+      {announcements && announcements.length > 0 && (
+        <div className={styles.announcementBar}>
+          <div className="container">
+            <marquee behavior="scroll" direction="left" className={styles.marqueeText}>
+              {announcements.map((ann, idx) => (
+                <span key={ann.id}>
+                  <strong>{ann.title}:</strong> {ann.content}
+                  {idx !== announcements.length - 1 && <span className={styles.separator}> | </span>}
+                </span>
+              ))}
+            </marquee>
+          </div>
+        </div>
+      )}
+
       <div className={`container ${styles.heroContent}`}>
         <h1 className={styles.heroTitle}>
           CREATE<br />BRIGHT FUTURES<br />TODAY
         </h1>
         <p className={styles.heroSubtitle}>Better Education for better world</p>
 
-        <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdTwoN8ynyn7jfw2vXhzU3fWuWQNXiJmHYWJZIpr4TBgVcnmw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" className={`btn btn-primary ${styles.ctaBtn}`}>
+        <Link href={admissionLink} target="_blank" rel="noopener noreferrer" className={`btn btn-primary ${styles.ctaBtn}`}>
           Admission Open
         </Link>
       </div>

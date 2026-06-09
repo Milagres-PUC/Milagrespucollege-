@@ -1,11 +1,21 @@
 import { Metadata } from 'next';
 import { Briefcase, Send } from 'lucide-react';
 
+import { createClient } from '@/utils/supabase/server';
+
 export const metadata: Metadata = {
   title: 'Careers | Milagres PU College',
 };
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const supabase = createClient();
+  const { data: careersData } = await supabase
+    .from('careers')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const careers = careersData || [];
+
   return (
     <div className="container section-padding">
       <h1 className="section-title">Join Our Team</h1>
@@ -21,14 +31,24 @@ export default function CareersPage() {
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'var(--primary-dark-blue)', marginBottom: '1.5rem' }}>
             <Briefcase className="text-primary-red" /> Current Openings
           </h3>
-          <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)', marginBottom: '1rem' }}>
-            <h4 style={{ color: 'var(--primary-red)' }}>Lecturer in Computer Science</h4>
-            <p style={{ fontSize: '0.85rem', color: '#777' }}>Qualification: M.Sc (CS) / MCA with B.Ed</p>
-          </div>
-          <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-            <h4 style={{ color: 'var(--primary-red)' }}>Administrative Assistant</h4>
-            <p style={{ fontSize: '0.85rem', color: '#777' }}>Qualification: Any Degree with Tally Knowledge</p>
-          </div>
+          {careers.length > 0 ? (
+            careers.map((career: any) => (
+              <div key={career.id} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)', marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                  <h4 style={{ color: 'var(--primary-red)' }}>{career.title}</h4>
+                  <span style={{ fontSize: '0.7rem', backgroundColor: '#eef2ff', color: '#4f46e5', padding: '0.2rem 0.5rem', borderRadius: '10px', fontWeight: 'bold' }}>
+                    {career.is_open ? 'OPEN' : 'CLOSED'}
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.4' }}>{career.description}</p>
+                {career.deadline && (
+                  <p style={{ fontSize: '0.8rem', color: '#999', marginTop: '0.5rem' }}>Deadline: {new Date(career.deadline).toLocaleDateString()}</p>
+                )}
+              </div>
+            ))
+          ) : (
+            <p style={{ color: '#666', fontStyle: 'italic' }}>No current openings available.</p>
+          )}
           <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#666', fontStyle: 'italic' }}>
             * Even if no suitable position is listed, you can still send us your resume for future consideration.
           </p>
