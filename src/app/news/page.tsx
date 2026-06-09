@@ -26,7 +26,7 @@ export default async function NewsPage() {
         {newsList.length === 0 ? (
           <p style={{ textAlign: 'center', color: '#666', padding: '3rem' }}>No news articles available at the moment.</p>
         ) : (
-          newsList.map((item) => (
+          newsList.map((item: any) => (
             <div key={item.id} style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'var(--primary-white)', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
               {item.image_url && (
                 <div style={{ height: '300px', width: '100%', position: 'relative' }}>
