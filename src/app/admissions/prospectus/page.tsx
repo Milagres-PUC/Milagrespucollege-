@@ -46,24 +46,34 @@ export default function ProspectusPage() {
           <p>Please check back later or contact the college office.</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
           {prospectusList.map((item) => (
-            <div key={item.id} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', border: '1px solid #eee' }}>
-              <div style={{ width: '70px', height: '70px', backgroundColor: '#fff5f5', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem', color: 'var(--primary-red)' }}>
-                <FileText size={32} />
+            <div key={item.id} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '15px', boxShadow: '0 5px 20px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', border: '1px solid #eee' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-dark-blue)', marginBottom: '0.2rem' }}>{item.title}</h3>
+                  <p style={{ fontSize: '0.9rem', color: '#777' }}>Uploaded on {new Date(item.created_at).toLocaleDateString()}</p>
+                </div>
+                <a 
+                  href={item.file_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.5rem' }}
+                >
+                  <Download size={18} /> Download
+                </a>
               </div>
-              <h3 style={{ fontSize: '1.2rem', color: 'var(--primary-dark-blue)', marginBottom: '0.5rem' }}>{item.title}</h3>
-              <p style={{ fontSize: '0.85rem', color: '#777', marginBottom: '2rem' }}>Uploaded on {new Date(item.created_at).toLocaleDateString()}</p>
               
-              <a 
-                href={item.file_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
-              >
-                <Download size={18} /> DOWNLOAD PDF
-              </a>
+              <div style={{ width: '100%', height: '800px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #ddd', backgroundColor: '#f5f5f5' }}>
+                <iframe 
+                  src={`${item.file_url}#view=FitH`} 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 'none' }} 
+                  title={item.title} 
+                />
+              </div>
             </div>
           ))}
         </div>
