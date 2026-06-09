@@ -43,7 +43,7 @@ export default function AnnouncementsManagement() {
     try {
       const { error } = await supabase
         .from('announcements')
-        .insert([{ title: 'Announcement', content: newContent, is_active: true }]);
+        .insert([{ content: newContent, is_active: true }]);
       
       if (error) {
         alert('Failed to add announcement: ' + error.message);
