@@ -13,9 +13,9 @@ export default function ExcellenceManagement() {
   
   const [formData, setFormData] = useState({
     student_name: '',
-    score_achievement: '',
-    category: 'Science',
-    image_url: ''
+    marks: '',
+    stream: 'Science',
+    academic_year: new Date().getFullYear().toString()
   });
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -29,7 +29,7 @@ export default function ExcellenceManagement() {
 
   const fetchStudents = async () => {
     const { data, error } = await supabase
-      .from('excellence_hall')
+      .from('academic_excellence')
       .select('*')
       .order('created_at', { ascending: false });
     
@@ -38,7 +38,7 @@ export default function ExcellenceManagement() {
   };
 
   const uploadPhoto = async () => {
-    if (!photoFile) return formData.image_url;
+    if (!photoFile) return null;
 
     const fileExt = photoFile.name.split('.').pop();
     const fileName = `excellence_${Date.now()}.${fileExt}`;
@@ -62,11 +62,11 @@ export default function ExcellenceManagement() {
       const photoUrl = await uploadPhoto();
       
       const { error } = await supabase
-        .from('excellence_hall')
-        .insert([{ ...formData, image_url: photoUrl }]);
+        .from('academic_excellence')
+        .insert([{ ...formData, photo_url: photoUrl }]);
       
       if (!error) {
-        setFormData({ student_name: '', score_achievement: '', category: 'Science', image_url: '' });
+        setFormData({ student_name: '', marks: '', stream: 'Science', academic_year: new Date().getFullYear().toString() });
         setPhotoFile(null);
         setIsModalOpen(false);
         fetchStudents();
@@ -82,7 +82,7 @@ export default function ExcellenceManagement() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Remove this achievement?')) return;
-    const { error } = await supabase.from('excellence_hall').delete().eq('id', id);
+    const { error } = await supabase.from('academic_excellence').delete().eq('id', id);
     if (!error) fetchStudents();
   };
 
@@ -115,9 +115,9 @@ export default function ExcellenceManagement() {
                 <Trash2 size={16} />
               </button>
               <div style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '0 auto 1rem', overflow: 'hidden', border: '3px solid var(--primary-yellow)' }}>
-                {student.image_url ? (
+                {student.photo_url ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
-                  <img src={student.image_url} alt={student.student_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={student.photo_url} alt={student.student_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', color: '#ccc' }}>
                     <ImageIcon size={32} />
@@ -125,9 +125,9 @@ export default function ExcellenceManagement() {
                 )}
               </div>
               <h3 style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>{student.student_name}</h3>
-              <p style={{ color: '#666', fontSize: '0.8rem', marginBottom: '0.5rem' }}>{student.category}</p>
+              <p style={{ color: '#666', fontSize: '0.8rem', marginBottom: '0.5rem' }}>{student.stream}</p>
               <div style={{ backgroundColor: 'var(--primary-red)', color: 'white', padding: '0.2rem 0.8rem', borderRadius: '15px', fontSize: '0.9rem', fontWeight: 'bold', display: 'inline-block' }}>
-                {student.score_achievement}
+                {student.marks}
               </div>
             </div>
           ))}
@@ -151,14 +151,14 @@ export default function ExcellenceManagement() {
               <input 
                 type="text" 
                 placeholder="Score / Achievement (e.g. 580/600)"
-                value={formData.score_achievement}
-                onChange={(e) => setFormData({...formData, score_achievement: e.target.value})}
+                value={formData.marks}
+                onChange={(e) => setFormData({...formData, marks: e.target.value})}
                 required
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               />
               <select 
-                value={formData.category}
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
+                value={formData.stream}
+                onChange={(e) => setFormData({...formData, stream: e.target.value})}
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               >
                 <option value="Science">Science</option>
