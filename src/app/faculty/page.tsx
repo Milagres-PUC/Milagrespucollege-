@@ -21,8 +21,8 @@ export default async function FacultyPage() {
     { name: 'Ms. Rekha', department: 'Arts', designation: 'Lecturer', is_leadership: false, id: '5' },
   ];
 
-  const leadershipTeam = faculty.filter(f => f.is_leadership);
-  const regularFaculty = faculty.filter(f => !f.is_leadership);
+  const leadershipTeam = faculty.filter((f: any) => f.is_leadership);
+  const regularFaculty = faculty.filter((f: any) => !f.is_leadership);
 
   return (
     <div className="container section-padding">
