@@ -7,7 +7,6 @@ import { Plus, Trash2, Save, Loader2, Megaphone } from 'lucide-react';
 export default function AnnouncementsManagement() {
   const [announcements, setAnnouncements] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -35,8 +34,8 @@ export default function AnnouncementsManagement() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!newTitle.trim() || !newContent.trim()) {
-      alert('Please enter both title and content.');
+    if (!newContent.trim()) {
+      alert('Please enter an announcement message.');
       return;
     }
 
@@ -44,12 +43,11 @@ export default function AnnouncementsManagement() {
     try {
       const { error } = await supabase
         .from('announcements')
-        .insert([{ title: newTitle, content: newContent, is_active: true }]);
+        .insert([{ title: 'Announcement', content: newContent, is_active: true }]);
       
       if (error) {
         alert('Failed to add announcement: ' + error.message);
       } else {
-        setNewTitle('');
         setNewContent('');
         fetchAnnouncements();
       }
@@ -85,14 +83,6 @@ export default function AnnouncementsManagement() {
       <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', marginBottom: '2rem' }}>
         <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Add New Announcement</h2>
         <form onSubmit={handleAdd} style={{ display: 'flex', gap: '1rem' }}>
-          <input 
-            type="text" 
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            placeholder="Announcement Title"
-            style={{ width: '200px', padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
-            required
-          />
           <input 
             type="text" 
             value={newContent}
@@ -140,7 +130,7 @@ export default function AnnouncementsManagement() {
                   style={{ width: '20px', height: '20px' }}
                 />
                 <span style={{ color: item.is_active ? 'black' : '#999', textDecoration: item.is_active ? 'none' : 'line-through' }}>
-                  <strong>{item.title}</strong>: {item.content}
+                  {item.content}
                 </span>
               </div>
               <button 
