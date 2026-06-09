@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import styles from './AcademicExcellence.module.css';
-import { Trophy } from 'lucide-react';
 import { createClient } from '@/utils/supabase/server';
 
 export default async function AcademicExcellence() {
@@ -44,16 +43,8 @@ export default async function AcademicExcellence() {
             </div>
           ))}
         </div>
-
-        <div className={styles.honoringBanner}>
-          <Trophy size={48} className={styles.trophyIcon} />
-          <div className={styles.bannerText}>
-            <h3>Honoring students who have achieved exceptional academic success</h3>
-            <p>~ For the Academic Year 2024–2025 ~</p>
-          </div>
-          <Trophy size={48} className={styles.trophyIcon} />
-        </div>
       </div>
+
     </section>
   );
 }
