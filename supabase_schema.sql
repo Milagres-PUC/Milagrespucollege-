@@ -195,6 +195,7 @@ CREATE TABLE IF NOT EXISTS events (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   title text NOT NULL,
   event_date text NOT NULL,
+  event_time text,
   description text,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );

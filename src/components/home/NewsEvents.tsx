@@ -81,6 +81,9 @@ export default async function NewsEvents() {
                   <Calendar size={18} />
                   <span>{event.event_date}</span>
                 </div>
+                {event.event_time && (
+                  <div className={styles.eventTime}>{event.event_time}</div>
+                )}
                 <div className={styles.eventDetail}>
                   <h4>{event.title}</h4>
                   {event.description && (

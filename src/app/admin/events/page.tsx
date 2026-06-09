@@ -13,6 +13,7 @@ export default function EventsManagement() {
   const [formData, setFormData] = useState({
     title: '',
     event_date: '',
+    event_time: '',
     description: ''
   });
 
@@ -42,7 +43,7 @@ export default function EventsManagement() {
       .insert([formData]);
     
     if (!error) {
-      setFormData({ title: '', event_date: '', description: '' });
+      setFormData({ title: '', event_date: '', event_time: '', description: '' });
       setIsModalOpen(false);
       fetchEvents();
     }
@@ -80,6 +81,7 @@ export default function EventsManagement() {
               <tr style={{ textAlign: 'left', borderBottom: '2px solid #eee' }}>
                 <th style={{ padding: '1rem' }}>Date</th>
                 <th style={{ padding: '1rem' }}>Title</th>
+                <th style={{ padding: '1rem' }}>Time</th>
                 <th style={{ padding: '1rem' }}>Description</th>
                 <th style={{ padding: '1rem', textAlign: 'right' }}>Actions</th>
               </tr>
@@ -89,6 +91,7 @@ export default function EventsManagement() {
                 <tr key={event.id} style={{ borderBottom: '1px solid #eee' }}>
                   <td style={{ padding: '1rem', fontWeight: 'bold', color: 'var(--primary-red)' }}>{event.event_date}</td>
                   <td style={{ padding: '1rem' }}>{event.title}</td>
+                  <td style={{ padding: '1rem', color: '#666' }}>{event.event_time}</td>
                   <td style={{ padding: '1rem', color: '#666', fontSize: '0.9rem' }}>{event.description}</td>
                   <td style={{ padding: '1rem', textAlign: 'right' }}>
                     <button onClick={() => handleDelete(event.id)} style={{ color: '#ff4d4d', background: 'none', border: 'none', cursor: 'pointer' }}>
@@ -123,6 +126,13 @@ export default function EventsManagement() {
                 value={formData.event_date}
                 onChange={(e) => setFormData({...formData, event_date: e.target.value})}
                 required
+                style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
+              />
+              <input 
+                type="text" 
+                placeholder="Time (e.g. 10:00 AM)"
+                value={formData.event_time}
+                onChange={(e) => setFormData({...formData, event_time: e.target.value})}
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               />
               <textarea 
