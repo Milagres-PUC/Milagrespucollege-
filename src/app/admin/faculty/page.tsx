@@ -16,7 +16,8 @@ export default function FacultyManagement() {
     designation: '',
     department: '',
     image_url: '',
-    order_index: 0
+    is_leadership: false,
+    display_order: 100
   });
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -33,6 +34,7 @@ export default function FacultyManagement() {
     const { data, error } = await supabase
       .from('faculty')
       .select('*')
+      .order('display_order', { ascending: true })
       .order('created_at', { ascending: false });
     
     if (!error) setFaculty(data || []);
@@ -64,14 +66,13 @@ export default function FacultyManagement() {
       const photoUrl = await uploadPhoto();
       
       const insertData = { ...formData, image_url: photoUrl };
-      delete (insertData as any).order_index; // Remove this if it's still in formData
 
       const { error } = await supabase
         .from('faculty')
         .insert([insertData]);
       
       if (!error) {
-        setFormData({ name: '', designation: '', department: '', image_url: '', order_index: 0 });
+        setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100 });
         setPhotoFile(null);
         setIsModalOpen(false);
         fetchFaculty();
@@ -111,7 +112,15 @@ export default function FacultyManagement() {
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1.5rem' }}>
           {faculty.map((member: any) => (
-            <div key={member.id} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', textAlign: 'center' }}>
+            <div key={member.id} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', textAlign: 'center', position: 'relative' }}>
+              {member.is_leadership && (
+                <div style={{ position: 'absolute', top: '10px', right: '10px', backgroundColor: 'var(--primary-dark-blue)', color: 'white', fontSize: '0.7rem', padding: '0.2rem 0.5rem', borderRadius: '10px', fontWeight: 'bold' }}>
+                  Leadership
+                </div>
+              )}
+              <div style={{ position: 'absolute', top: '10px', left: '10px', backgroundColor: '#eee', color: '#666', fontSize: '0.7rem', padding: '0.2rem 0.5rem', borderRadius: '10px', fontWeight: 'bold' }}>
+                #{member.display_order}
+              </div>
               <div style={{ width: '80px', height: '80px', backgroundColor: 'var(--primary-yellow)', borderRadius: '50%', margin: '0 auto 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary-dark-blue)' }}>
                 {member.image_url ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
@@ -163,6 +172,24 @@ export default function FacultyManagement() {
                 required
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
               />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', flex: 1 }}>
+                  <input 
+                    type="checkbox" 
+                    checked={formData.is_leadership}
+                    onChange={(e) => setFormData({...formData, is_leadership: e.target.checked})}
+                    style={{ width: '18px', height: '18px' }}
+                  />
+                  <span>Is Leadership Team?</span>
+                </label>
+                <input 
+                  type="number" 
+                  placeholder="Display Priority (e.g. 1)"
+                  value={formData.display_order}
+                  onChange={(e) => setFormData({...formData, display_order: parseInt(e.target.value) || 100})}
+                  style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd', flex: 1 }}
+                />
+              </div>
               <input 
                 type="file" 
                 accept="image/*"

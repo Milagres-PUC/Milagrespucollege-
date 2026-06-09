@@ -74,6 +74,8 @@ CREATE TABLE IF NOT EXISTS faculty (
   designation text NOT NULL,
   department text NOT NULL,
   photo_url text,
+  is_leadership boolean DEFAULT false,
+  display_order integer DEFAULT 100,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now())
 );
 
