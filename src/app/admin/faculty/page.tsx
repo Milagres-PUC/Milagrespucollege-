@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { Plus, Trash2, Loader2, Users, User } from 'lucide-react';
+import { Plus, Trash2, Edit2, Loader2, Users, User } from 'lucide-react';
 import ImageCropperModal from '@/components/admin/ImageCropperModal';
 
 export default function FacultyManagement() {
@@ -10,6 +10,7 @@ export default function FacultyManagement() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -67,12 +68,23 @@ export default function FacultyManagement() {
       
       const insertData = { ...formData, image_url: photoUrl };
 
-      const { error } = await supabase
-        .from('faculty')
-        .insert([insertData]);
+      let error;
+      if (editingId) {
+        const { error: updateError } = await supabase
+          .from('faculty')
+          .update(insertData)
+          .eq('id', editingId);
+        error = updateError;
+      } else {
+        const { error: insertError } = await supabase
+          .from('faculty')
+          .insert([insertData]);
+        error = insertError;
+      }
       
       if (!error) {
         setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100 });
+        setEditingId(null);
         setPhotoFile(null);
         setIsModalOpen(false);
         fetchFaculty();
@@ -91,6 +103,19 @@ export default function FacultyManagement() {
     if (!error) fetchFaculty();
   };
 
+  const handleEdit = (member: any) => {
+    setFormData({
+      name: member.name,
+      designation: member.designation,
+      department: member.department,
+      image_url: member.image_url || '',
+      is_leadership: member.is_leadership || false,
+      display_order: member.display_order || 100
+    });
+    setEditingId(member.id);
+    setIsModalOpen(true);
+  };
+
   return (
     <div style={{ padding: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
@@ -99,7 +124,11 @@ export default function FacultyManagement() {
           <h1 style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>Faculty Management</h1>
         </div>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setEditingId(null);
+            setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100 });
+            setIsModalOpen(true);
+          }}
           style={{ backgroundColor: 'var(--primary-dark-blue)', color: 'white', padding: '0.8rem 1.5rem', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
         >
           <Plus size={18} />
@@ -130,13 +159,22 @@ export default function FacultyManagement() {
               <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>{member.name}</h3>
               <p style={{ color: 'var(--primary-red)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '0.2rem' }}>{member.department}</p>
               <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '1rem' }}>{member.designation}</p>
-              <button 
-                onClick={() => handleDelete(member.id)}
-                style={{ color: '#ff4d4d', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem', margin: '0 auto' }}
-              >
-                <Trash2 size={14} />
-                <span>Remove</span>
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+                <button 
+                  onClick={() => handleEdit(member)}
+                  style={{ color: 'var(--primary-dark-blue)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                >
+                  <Edit2 size={14} />
+                  <span>Edit</span>
+                </button>
+                <button 
+                  onClick={() => handleDelete(member.id)}
+                  style={{ color: '#ff4d4d', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                >
+                  <Trash2 size={14} />
+                  <span>Remove</span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -146,7 +184,7 @@ export default function FacultyManagement() {
       {isModalOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '10px', width: '500px', maxWidth: '90%' }}>
-            <h2 style={{ marginBottom: '1.5rem' }}>Add Faculty Member</h2>
+            <h2 style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Faculty Member' : 'Add Faculty Member'}</h2>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <input 
                 type="text" 
