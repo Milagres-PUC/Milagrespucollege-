@@ -12,7 +12,7 @@ export default async function NewsEvents() {
     .from('news')
     .select('*')
     .order('created_at', { ascending: false })
-    .limit(3);
+    .limit(4);
 
   // Fetch Events
   const { data: eventsData } = await supabase
@@ -57,7 +57,12 @@ export default async function NewsEvents() {
                 </div>
                 <div className={styles.newsContent}>
                   <h4 className={styles.newsTitle}>{item.title}</h4>
-                  <p className={styles.newsDesc}>{item.content}</p>
+                  <p className={styles.newsDesc}>
+                    {item.content.length > 50 ? item.content.substring(0, 50) + '...' : item.content}
+                  </p>
+                  <Link href={`/news/${item.id}`} style={{ display: 'inline-block', marginTop: '0.5rem', color: 'var(--primary-dark-blue)', fontWeight: 'bold', fontSize: '0.85rem', textDecoration: 'none' }}>
+                    Read More &rarr;
+                  </Link>
                 </div>
               </div>
             ))}
