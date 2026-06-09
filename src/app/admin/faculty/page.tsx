@@ -24,6 +24,7 @@ export default function FacultyManagement() {
 
   useEffect(() => {
     fetchFaculty();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchFaculty = async () => {

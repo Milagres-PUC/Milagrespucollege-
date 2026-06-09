@@ -12,6 +12,7 @@ export default function InquiriesManagement() {
 
   useEffect(() => {
     fetchInquiries();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchInquiries = async () => {

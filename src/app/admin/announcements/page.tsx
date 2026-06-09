@@ -15,6 +15,7 @@ export default function AnnouncementsManagement() {
 
   useEffect(() => {
     fetchAnnouncements();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchAnnouncements = async () => {

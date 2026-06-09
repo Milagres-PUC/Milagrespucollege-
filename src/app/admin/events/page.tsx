@@ -20,6 +20,7 @@ export default function EventsManagement() {
 
   useEffect(() => {
     fetchEvents();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchEvents = async () => {

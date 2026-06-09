@@ -20,6 +20,7 @@ export default function CoursesManagement() {
 
   useEffect(() => {
     fetchCourses();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchCourses = async () => {

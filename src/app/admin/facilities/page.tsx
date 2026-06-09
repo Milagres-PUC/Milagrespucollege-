@@ -23,6 +23,7 @@ export default function FacilitiesManagement() {
 
   useEffect(() => {
     fetchFacilities();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchFacilities = async () => {

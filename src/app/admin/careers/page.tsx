@@ -21,6 +21,7 @@ export default function CareersManagement() {
 
   useEffect(() => {
     fetchCareers();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   const fetchCareers = async () => {

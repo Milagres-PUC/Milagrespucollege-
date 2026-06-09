@@ -26,7 +26,7 @@ export default async function GalleryPage() {
       
       {images.length > 0 ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
-          {images.map((image) => (
+          {images.map((image: any) => (
             <div key={image.name} style={{ position: 'relative', height: '250px', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
               <Image 
                 src={image.url} 
