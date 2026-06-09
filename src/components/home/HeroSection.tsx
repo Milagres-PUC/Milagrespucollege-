@@ -29,20 +29,7 @@ export default async function HeroSection() {
         <div className={styles.overlay}></div>
       </div>
 
-      {announcements && announcements.length > 0 && (
-        <div className={styles.announcementBar}>
-          <div className={styles.marqueeContainer}>
-            <div className={styles.marqueeText}>
-              {announcements.map((ann: any, idx: number) => (
-                <span key={ann.id}>
-                  <strong>{ann.title}:</strong> {ann.content}
-                  {idx !== announcements.length - 1 && <span className={styles.separator}> | </span>}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+
 
       <div className={`container ${styles.heroContent}`}>
         <h1 className={styles.heroTitle}>

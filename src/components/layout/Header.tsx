@@ -11,24 +11,24 @@ import styles from './Header.module.css';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [announcement, setAnnouncement] = useState('Admissions Open for 2026–2027 • Apply Now for Science, Commerce, and Arts Streams • Better Education for a Better World');
+  const [announcements, setAnnouncements] = useState<any[]>([]);
   const supabase = createClient();
 
   useEffect(() => {
-    async function fetchAnnouncement() {
+    async function fetchAnnouncements() {
       const { data, error } = await supabase
         .from('announcements')
-        .select('content')
+        .select('*')
         .eq('is_active', true)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+        .order('created_at', { ascending: false });
       
-      if (data && !error) {
-        setAnnouncement(data.content);
+      if (data && !error && data.length > 0) {
+        setAnnouncements(data);
+      } else {
+        setAnnouncements([{ id: 'default', title: 'Admissions', content: 'Admissions Open for 2026–2027 • Apply Now for Science, Commerce, and Arts Streams • Better Education for a Better World' }]);
       }
     }
-    fetchAnnouncement();
+    fetchAnnouncements();
   }, [supabase]);
 
   const navLinks = [
@@ -199,7 +199,14 @@ export default function Header() {
       <div className={styles.tickerBar}>
         <div className={styles.tickerHeader}>ANNOUNCEMENT:</div>
         <div className={styles.marquee}>
-          <p>{announcement}</p>
+          <p>
+            {announcements.map((ann, idx) => (
+              <span key={ann.id}>
+                {ann.title && ann.title.trim() !== '' ? <strong>{ann.title}: </strong> : ''}{ann.content}
+                {idx !== announcements.length - 1 && <span style={{ margin: '0 2rem', opacity: 0.5 }}>|</span>}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
     </header>
