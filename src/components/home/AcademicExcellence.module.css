@@ -27,7 +27,6 @@
 .marqueeContainer {
   width: 100%;
   overflow: hidden;
-  margin-bottom: 5rem;
   padding-bottom: 2rem; /* Extra padding for the score badges */
   position: relative;
 }
