@@ -1,8 +1,16 @@
 .principalSection {
-  background-color: #0b49a5; /* Deep blue background as per the reference */
-  padding: 5rem 0;
+  background-color: var(--primary-dark-blue);
   color: var(--primary-white);
+  padding: 5rem 0;
   overflow: hidden;
+}
+
+.mobileOnlyTitle {
+  display: none;
+}
+
+.desktopOnlyTitle {
+  display: block;
 }
 
 .principalContainer {
@@ -25,10 +33,17 @@
     max-width: 300px;
     margin: 0 auto;
   }
-  .sectionTitle {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+  .mobileOnlyTitle {
+    display: block;
     text-align: center;
+    margin-bottom: 2rem;
+  }
+  .desktopOnlyTitle {
+    display: none;
+  }
+  .sectionTitle {
+    font-size: 2.2rem;
+    margin-bottom: 0;
   }
   .messageBox {
     font-size: 0.95rem;

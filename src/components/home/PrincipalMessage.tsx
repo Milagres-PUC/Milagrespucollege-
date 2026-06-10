@@ -13,9 +13,12 @@ export default async function PrincipalMessage() {
 
   return (
     <section className={styles.principalSection}>
+      <div className={`container ${styles.mobileOnlyTitle}`}>
+        <h2 className={styles.sectionTitle}>Principal Message</h2>
+      </div>
       <div className={`container ${styles.principalContainer}`}>
         <div className={styles.contentColumn}>
-          <h2 className={styles.sectionTitle}>Principal Message</h2>
+          <h2 className={`${styles.sectionTitle} ${styles.desktopOnlyTitle}`}>Principal Message</h2>
 
           <div className={styles.messageBox}>
             <Quote className={styles.quoteIconTop} size={48} />

@@ -336,19 +336,22 @@
 /* Responsive fixes */
 @media (max-width: 768px) {
   .topBarContainer {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 0.5rem;
   }
 
   .contactInfo {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.25rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .socialIcons {
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
   }
 
   .tickerHeader {
