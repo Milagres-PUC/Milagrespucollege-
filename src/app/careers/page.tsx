@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Briefcase, Send } from 'lucide-react';
 
 import { createClient } from '@/utils/supabase/server';
+import styles from './careers.module.css';
 
 export const metadata: Metadata = {
   title: 'Careers | Milagres PU College',
@@ -26,7 +27,7 @@ export default async function CareersPage() {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginTop: '2rem' }}>
+      <div className={styles.gridContainer}>
         <div style={{ backgroundColor: '#f9f9f9', padding: '2rem', borderRadius: '15px' }}>
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'var(--primary-dark-blue)', marginBottom: '1.5rem' }}>
             <Briefcase className="text-primary-red" /> Current Openings
