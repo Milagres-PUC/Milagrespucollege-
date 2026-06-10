@@ -18,7 +18,10 @@ export default function FacultyManagement() {
     department: '',
     image_url: '',
     is_leadership: false,
-    display_order: 100
+    display_order: 100,
+    qualification: '',
+    experience: '',
+    bio: ''
   });
 
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -83,7 +86,7 @@ export default function FacultyManagement() {
       }
       
       if (!error) {
-        setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100 });
+        setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100, qualification: '', experience: '', bio: '' });
         setEditingId(null);
         setPhotoFile(null);
         setIsModalOpen(false);
@@ -110,7 +113,10 @@ export default function FacultyManagement() {
       department: member.department,
       image_url: member.image_url || '',
       is_leadership: member.is_leadership || false,
-      display_order: member.display_order || 100
+      display_order: member.display_order || 100,
+      qualification: member.qualification || '',
+      experience: member.experience || '',
+      bio: member.bio || ''
     });
     setEditingId(member.id);
     setIsModalOpen(true);
@@ -126,7 +132,7 @@ export default function FacultyManagement() {
         <button 
           onClick={() => {
             setEditingId(null);
-            setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100 });
+            setFormData({ name: '', designation: '', department: '', image_url: '', is_leadership: false, display_order: 100, qualification: '', experience: '', bio: '' });
             setIsModalOpen(true);
           }}
           style={{ backgroundColor: 'var(--primary-dark-blue)', color: 'white', padding: '0.8rem 1.5rem', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
@@ -182,8 +188,8 @@ export default function FacultyManagement() {
 
       {/* Simple Modal */}
       {isModalOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '10px', width: '500px', maxWidth: '90%' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, overflowY: 'auto' }}>
+          <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '10px', width: '500px', maxWidth: '90%', maxHeight: '90vh', overflowY: 'auto' }}>
             <h2 style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Faculty Member' : 'Add Faculty Member'}</h2>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <input 
@@ -209,6 +215,26 @@ export default function FacultyManagement() {
                 onChange={(e) => setFormData({...formData, designation: e.target.value})}
                 required
                 style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
+              />
+              <input 
+                type="text" 
+                placeholder="Qualification (e.g. M.Sc, Ph.D)"
+                value={formData.qualification}
+                onChange={(e) => setFormData({...formData, qualification: e.target.value})}
+                style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
+              />
+              <input 
+                type="text" 
+                placeholder="Years of Experience (e.g. 10 Years)"
+                value={formData.experience}
+                onChange={(e) => setFormData({...formData, experience: e.target.value})}
+                style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd' }}
+              />
+              <textarea 
+                placeholder="Brief Profile / Bio (Optional)"
+                value={formData.bio}
+                onChange={(e) => setFormData({...formData, bio: e.target.value})}
+                style={{ padding: '0.8rem', borderRadius: '5px', border: '1px solid #ddd', minHeight: '80px', fontFamily: 'inherit' }}
               />
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', flex: 1 }}>
