@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import styles from './newsDetail.module.css';
 
 export const revalidate = 0; // Ensure dynamic rendering or ISR
 
@@ -43,9 +44,9 @@ export default async function NewsArticlePage({ params }: { params: { id: string
         Back to News
       </Link>
       
-      <div style={{ backgroundColor: 'white', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 10px 25px rgba(0,0,0,0.05)' }}>
+      <div className={styles.articleContainer}>
         {article.image_url && (
-          <div style={{ width: '100%', height: '400px', position: 'relative' }}>
+          <div className={styles.imageWrapper}>
             <Image 
               src={article.image_url} 
               alt={article.title} 
@@ -55,8 +56,8 @@ export default async function NewsArticlePage({ params }: { params: { id: string
           </div>
         )}
         
-        <div style={{ padding: '3rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem', color: '#666', fontSize: '0.9rem' }}>
+        <div className={styles.contentWrapper}>
+          <div className={styles.metaInfo}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Calendar size={16} />
               <span>{publishDate}</span>
@@ -69,11 +70,11 @@ export default async function NewsArticlePage({ params }: { params: { id: string
             )}
           </div>
           
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--primary-dark-blue)', marginBottom: '2rem', lineHeight: 1.3 }}>
+          <h1 className={styles.articleTitle}>
             {article.title}
           </h1>
           
-          <div style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#444', whiteSpace: 'pre-wrap' }}>
+          <div className={styles.articleContent}>
             {article.content}
           </div>
         </div>
