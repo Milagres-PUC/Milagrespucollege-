@@ -24,7 +24,7 @@ export default async function HeroSection() {
           alt="Milagres PU College Campus"
           fill
           priority
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'cover', objectPosition: 'center top' }}
         />
         <div className={styles.overlay}></div>
       </div>
@@ -38,7 +38,7 @@ export default async function HeroSection() {
         <p className={styles.heroSubtitle}>Better Education for better world</p>
 
         <Link href={admissionLink} target="_blank" rel="noopener noreferrer" className={`btn btn-primary ${styles.ctaBtn}`}>
-          Admission Open
+          Admission Form
         </Link>
       </div>
 
