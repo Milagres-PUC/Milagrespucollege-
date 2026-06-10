@@ -91,7 +91,7 @@ export default function FacultyClient({ faculty }: { faculty: any[] }) {
             </button>
             
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ backgroundColor: 'var(--primary-dark-blue)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative' }}>
+              <div style={{ backgroundColor: 'var(--primary-dark-blue)', padding: '4rem 2rem 3rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative' }}>
                 <div style={{ position: 'absolute', bottom: '-50px', width: '140px', height: '140px', backgroundColor: 'white', borderRadius: '15px', border: '5px solid white', overflow: 'hidden', boxShadow: '0 5px 15px rgba(0,0,0,0.2)' }}>
                   {selectedMember.image_url ? (
                     <Image src={selectedMember.image_url} alt={selectedMember.name} width={140} height={140} style={{ width: '100%', height: '100%', objectFit: 'cover' }} unoptimized />
