@@ -42,3 +42,10 @@
   background-color: var(--primary-red);
   color: var(--primary-white);
 }
+
+@media (max-width: 768px) {
+  .aboutContent p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}

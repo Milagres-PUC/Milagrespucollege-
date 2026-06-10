@@ -16,10 +16,10 @@ export default async function PrincipalMessage() {
       <div className={`container ${styles.principalContainer}`}>
         <div className={styles.contentColumn}>
           <h2 className={styles.sectionTitle}>Principal Message</h2>
-          
+
           <div className={styles.messageBox}>
             <Quote className={styles.quoteIconTop} size={48} />
-            <p className={styles.greeting}>Dear Students, Parents, and Visitors</p>
+            <p className={styles.greeting}>Dear Students, Parents and Visitors</p>
             <p style={{ whiteSpace: 'pre-line' }}>{principalMessage}</p>
             <p className={styles.signature}>~ {principalName}</p>
             <Quote className={styles.quoteIconBottom} size={48} />
@@ -29,10 +29,10 @@ export default async function PrincipalMessage() {
         <div className={styles.imageColumn}>
           <div className={styles.imageWrapper}>
             <div className={styles.decorativeBox}></div>
-            <Image 
-              src={principalPhoto} 
-              alt={`Principal ${principalName}`} 
-              width={400} 
+            <Image
+              src={principalPhoto}
+              alt={`Principal ${principalName}`}
+              width={400}
               height={500}
               className={styles.pImg}
               unoptimized

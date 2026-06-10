@@ -14,14 +14,24 @@
 
 @media (max-width: 991px) {
   .principalContainer {
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .contentColumn {
+    order: 2;
+  }
+  .imageColumn {
+    order: 1;
+    max-width: 300px;
+    margin: 0 auto;
   }
   .sectionTitle {
     font-size: 1.8rem;
     margin-bottom: 1rem;
+    text-align: center;
   }
   .messageBox {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
   .signature {
     margin-top: 1rem;
