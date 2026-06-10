@@ -42,7 +42,8 @@
     display: none;
   }
   .sectionTitle {
-    font-size: 2.2rem;
+    font-size: 1.6rem;
+    white-space: nowrap;
     margin-bottom: 0;
   }
   .messageBox {
