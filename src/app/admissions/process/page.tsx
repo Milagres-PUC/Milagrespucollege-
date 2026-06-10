@@ -37,9 +37,11 @@ export default function AdmissionProcessPage() {
       <div style={{ marginTop: '5rem', backgroundColor: 'var(--primary-dark-blue)', color: 'white', padding: '3rem', borderRadius: '20px', textAlign: 'center' }}>
         <h2 style={{ marginBottom: '1rem' }}>Ready to join us?</h2>
         <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Fill out the admission form and secure your seat for the upcoming academic year.</p>
-        <button className="btn btn-primary" style={{ backgroundColor: 'var(--primary-yellow)', color: 'var(--primary-dark-blue)', border: 'none', padding: '1rem 2rem', fontWeight: '700', borderRadius: '30px' }}>
-          APPLY NOW <ArrowRight size={20} style={{ marginLeft: '0.5rem', display: 'inline' }} />
-        </button>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdTwoN8ynyn7jfw2vXhzU3fWuWQNXiJmHYWJZIpr4TBgVcnmw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+          <button className="btn btn-primary" style={{ backgroundColor: 'var(--primary-yellow)', color: 'var(--primary-dark-blue)', border: 'none', padding: '1rem 2rem', fontWeight: '700', borderRadius: '30px', cursor: 'pointer' }}>
+            APPLY NOW <ArrowRight size={20} style={{ marginLeft: '0.5rem', display: 'inline' }} />
+          </button>
+        </a>
       </div>
     </div>
   );
