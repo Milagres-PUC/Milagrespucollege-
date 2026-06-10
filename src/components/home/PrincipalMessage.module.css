@@ -7,14 +7,26 @@
 
 .principalContainer {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 4rem;
   align-items: center;
 }
 
-@media (min-width: 992px) {
+@media (max-width: 991px) {
   .principalContainer {
-    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+  }
+  .sectionTitle {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .messageBox {
+    font-size: 0.9rem;
+  }
+  .signature {
+    margin-top: 1rem;
+    padding-right: 0;
+    text-align: center;
   }
 }
 

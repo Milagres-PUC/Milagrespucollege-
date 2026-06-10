@@ -335,9 +335,20 @@
 
 /* Responsive fixes */
 @media (max-width: 768px) {
+  .topBarContainer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .contactInfo {
     flex-direction: column;
+    align-items: center;
     gap: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .socialIcons {
+    justify-content: center;
   }
 
   .tickerHeader {

@@ -55,16 +55,29 @@
   padding: 0.8rem 2rem;
 }
 
-/* Scholarship Cards */
 .scholarshipCards {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
   width: 100%;
+  padding-bottom: 1rem;
+}
+
+.scholarshipCards::-webkit-scrollbar {
+  height: 4px;
+}
+.scholarshipCards::-webkit-scrollbar-thumb {
+  background: var(--primary-yellow);
+  border-radius: 4px;
 }
 
 @media (min-width: 768px) {
   .scholarshipCards {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+    gap: 0;
   }
 
   .heroContent {
@@ -76,6 +89,8 @@
   padding: 2rem;
   backdrop-filter: blur(5px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 250px;
+  flex-shrink: 0;
 }
 
 .card h3 {

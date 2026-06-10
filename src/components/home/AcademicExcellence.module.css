@@ -16,6 +16,14 @@
   letter-spacing: 1.5px;
 }
 
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 1.4rem;
+    white-space: nowrap;
+    margin-bottom: 2.5rem;
+  }
+}
+
 .marqueeContainer {
   width: 100%;
   overflow: hidden;
