@@ -58,6 +58,9 @@ export default function Footer() {
       <div className={styles.copyrightBar}>
         <div className="container">
           <p>© 2026 Milagres PU College. All Rights Reserved.</p>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+            Developed by <a href="https://www.shwethainitiative.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-yellow)', textDecoration: 'none', fontWeight: '500' }}>Shwetha Initiative</a>
+          </p>
         </div>
       </div>
     </footer>
