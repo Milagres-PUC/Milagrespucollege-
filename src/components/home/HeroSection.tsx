@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/server';
 
 export default async function HeroSection() {
   const supabase = createClient();
-  
+
   const { data: settings } = await supabase.from('global_settings').select('*').eq('id', 1).single();
   const admissionLink = settings?.admission_form_link || '#';
 
@@ -48,12 +48,12 @@ export default async function HeroSection() {
           <p>For better education please go through with english</p>
         </div>
         <div className={`${styles.card} ${styles.cardBlue}`}>
-          <h3>Scholarship Facility</h3>
-          <p>For better education please go through with english</p>
+          <h3>Mentorship & Support</h3>
+          <p>Comprehensive guidance for holistic student development</p>
         </div>
         <div className={`${styles.card} ${styles.cardYellow}`}>
-          <h3>Scholarship Facility</h3>
-          <p>For better education please go through with english</p>
+          <h3>Quality Infrastructure</h3>
+          <p>Modern classrooms and facilities to foster effective learning</p>
         </div>
       </div>
     </section>
