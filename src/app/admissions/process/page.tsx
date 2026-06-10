@@ -16,7 +16,7 @@ export default function AdmissionProcessPage() {
   return (
     <div className="container section-padding">
       <h1 className="section-title">Admission Process</h1>
-      
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
         {steps.map((step, index) => (
           <div key={index} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', position: 'relative', overflow: 'hidden' }}>
@@ -36,9 +36,9 @@ export default function AdmissionProcessPage() {
 
       <div style={{ marginTop: '5rem', backgroundColor: 'var(--primary-dark-blue)', color: 'white', padding: '3rem', borderRadius: '20px', textAlign: 'center' }}>
         <h2 style={{ marginBottom: '1rem' }}>Ready to join us?</h2>
-        <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Contact our admissions office for any queries regarding the current academic year.</p>
+        <p style={{ marginBottom: '2rem', opacity: 0.9 }}>Fill out the admission form and secure your seat for the upcoming academic year.</p>
         <button className="btn btn-primary" style={{ backgroundColor: 'var(--primary-yellow)', color: 'var(--primary-dark-blue)', border: 'none', padding: '1rem 2rem', fontWeight: '700', borderRadius: '30px' }}>
-          CONTACT ADMISSIONS <ArrowRight size={20} style={{ marginLeft: '0.5rem', display: 'inline' }} />
+          APPLY NOW <ArrowRight size={20} style={{ marginLeft: '0.5rem', display: 'inline' }} />
         </button>
       </div>
     </div>
