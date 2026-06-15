@@ -19,6 +19,7 @@ interface GalleryItem {
   name: string;
   url: string;
   created_at: string | null;
+  id: string | null;
 }
 
 export default function GalleryManagement() {
@@ -38,7 +39,8 @@ export default function GalleryManagement() {
       const imageUrls = (data || []).map((file: any) => ({
         name: file.name,
         url: supabase.storage.from('images').getPublicUrl(file.name).data.publicUrl,
-        created_at: file.created_at
+        created_at: file.created_at,
+        id: file.id || null
       }));
 
       setImages(imageUrls);
@@ -81,15 +83,38 @@ export default function GalleryManagement() {
     }
   };
 
-  const handleDelete = async (name: string) => {
+  const handleDelete = async (name: string, id: string | null) => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
 
     try {
-      const { error } = await supabase.storage.from('images').remove([name]);
-      if (error) throw error;
+      if (id === null) {
+        // It's a folder, we need to delete all files inside it
+        const { data: filesInFolder, error: listError } = await supabase.storage.from('images').list(name);
+        if (listError) throw listError;
+        
+        const filesToRemove = filesInFolder && filesInFolder.length > 0
+          ? filesInFolder.map(f => `${name}/${f.name}`)
+          : [`${name}/.emptyFolderPlaceholder`]; // Fallback for empty folders
+
+        if (filesToRemove.length > 0) {
+          const { data, error: removeError } = await supabase.storage.from('images').remove(filesToRemove);
+          if (removeError) throw removeError;
+          if (!data || data.length === 0) {
+            throw new Error('You do not have permission to delete this folder.');
+          }
+        }
+      } else {
+        // It's a regular file
+        const { data, error } = await supabase.storage.from('images').remove([name]);
+        if (error) throw error;
+        if (!data || data.length === 0) {
+          throw new Error('You do not have permission to delete this image.');
+        }
+      }
+      
       setImages(images.filter(img => img.name !== name));
-    } catch (error) {
-      alert('Error deleting image');
+    } catch (error: any) {
+      alert(error.message || 'Error deleting image');
     }
   };
 
@@ -134,7 +159,7 @@ export default function GalleryManagement() {
                   <a href={image.url} target="_blank" rel="noopener noreferrer" className={styles.viewBtn}>
                     <ExternalLink size={18} />
                   </a>
-                  <button onClick={() => handleDelete(image.name)} className={styles.deleteBtn}>
+                  <button onClick={() => handleDelete(image.name, image.id)} className={styles.deleteBtn}>
                     <Trash2 size={18} />
                   </button>
                 </div>

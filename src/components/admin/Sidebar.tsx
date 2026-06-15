@@ -37,7 +37,6 @@ export default function Sidebar() {
     { name: 'Gallery', icon: ImageIcon, path: '/admin/gallery' },
     { name: 'Prospectus', icon: FileText, path: '/admin/prospectus' },
     { name: 'User Inquiries', icon: Users, path: '/admin/inquiries' },
-    { name: 'User Management', icon: Users, path: '/admin/users' },
     { name: 'Global Settings', icon: Settings, path: '/admin/settings' },
   ];
 
