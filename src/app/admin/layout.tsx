@@ -1,8 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
-import Sidebar from '@/components/admin/Sidebar';
-import AdminHeader from '@/components/admin/AdminHeader';
-import styles from './layout.module.css';
+import AdminClientWrapper from './AdminClientWrapper';
 import { headers } from 'next/headers';
 
 export default async function AdminLayout({
@@ -24,29 +22,18 @@ export default async function AdminLayout({
     fullPath.includes('/admin/verify-otp') || 
     fullPath.includes('/admin/reset-password');
 
-  if (!user && !isPublicRoute) {
+  if (!user && !isPublicRoute && fullPath !== '') {
     redirect('/admin/login');
   }
 
   // If we are on a public route (like login) and already logged in, redirect to dashboard
-  if (user && isPublicRoute) {
+  if (user && isPublicRoute && fullPath !== '') {
     redirect('/admin/dashboard');
   }
 
-  // If it's a public route, don't show sidebar/header
-  if (isPublicRoute) {
-    return <>{children}</>;
-  }
-
   return (
-    <div className={styles.adminContainer}>
-      <Sidebar />
-      <div className={styles.mainContent}>
-        <AdminHeader user={user} />
-        <main className={styles.pageBody}>
-          {children}
-        </main>
-      </div>
-    </div>
+    <AdminClientWrapper user={user}>
+      {children}
+    </AdminClientWrapper>
   );
 }
