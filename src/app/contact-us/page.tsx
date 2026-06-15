@@ -42,7 +42,7 @@ export default function ContactPage() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
         <div>
           <h3 style={{ color: 'var(--primary-dark-blue)', marginBottom: '1.5rem' }}>Get in Touch</h3>
-          <p style={{ marginBottom: '1rem' }}><strong>Address:</strong> Milagres PU College, City Name, State 560001</p>
+          <p style={{ marginBottom: '1rem' }}><strong>Address:</strong> Milagres PU College, Hampankatta, Mangaluru, Karnataka 575001</p>
           <p style={{ marginBottom: '1rem' }}><strong>Phone:</strong> 0824-2448633 / 7026012900</p>
           <p style={{ marginBottom: '2rem' }}><strong>Email:</strong> milagrespucmangalore@yahoo.co.in</p>
           <h3 style={{ color: 'var(--primary-dark-blue)', marginBottom: '1rem' }}>Working Hours</h3>
@@ -55,9 +55,9 @@ export default function ContactPage() {
               <CheckCircle size={48} color="#38a169" style={{ marginBottom: '1rem' }} />
               <h3 style={{ color: '#2f855a' }}>Message Sent!</h3>
               <p>Thank you for reaching out. We will get back to you soon.</p>
-              <button 
-                onClick={() => setSuccess(false)} 
-                className="btn btn-primary" 
+              <button
+                onClick={() => setSuccess(false)}
+                className="btn btn-primary"
                 style={{ marginTop: '1.5rem' }}
               >
                 Send Another Message
@@ -66,33 +66,33 @@ export default function ContactPage() {
           ) : (
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {error && <div style={{ color: 'var(--primary-red)', marginBottom: '1rem' }}>{error}</div>}
-              <input 
-                type="text" 
-                placeholder="Your Name" 
+              <input
+                type="text"
+                placeholder="Your Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required 
-                style={{ padding: '1rem', borderRadius: '5px', border: '1px solid #ccc' }} 
+                required
+                style={{ padding: '1rem', borderRadius: '5px', border: '1px solid #ccc' }}
               />
-              <input 
-                type="email" 
-                placeholder="Your Email" 
+              <input
+                type="email"
+                placeholder="Your Email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required 
-                style={{ padding: '1rem', borderRadius: '5px', border: '1px solid #ccc' }} 
+                required
+                style={{ padding: '1rem', borderRadius: '5px', border: '1px solid #ccc' }}
               />
-              <textarea 
-                placeholder="Your Message" 
-                rows={5} 
+              <textarea
+                placeholder="Your Message"
+                rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required 
+                required
                 style={{ padding: '1rem', borderRadius: '5px', border: '1px solid #ccc' }}
               ></textarea>
-              <button 
-                type="submit" 
-                className="btn btn-primary" 
+              <button
+                type="submit"
+                className="btn btn-primary"
                 style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                 disabled={loading}
               >
