@@ -93,7 +93,7 @@ export default function GalleryManagement() {
         if (listError) throw listError;
         
         const filesToRemove = filesInFolder && filesInFolder.length > 0
-          ? filesInFolder.map(f => `${name}/${f.name}`)
+          ? filesInFolder.map((f: any) => `${name}/${f.name}`)
           : [`${name}/.emptyFolderPlaceholder`]; // Fallback for empty folders
 
         if (filesToRemove.length > 0) {
