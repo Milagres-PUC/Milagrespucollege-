@@ -41,7 +41,7 @@ export default function Footer() {
           <ul className={styles.contactList}>
             <li className={styles.contactItem}>
               <MapPin className={styles.icon} size={18} />
-              <span>Milagres PU College, City Name, State 560001</span>
+              <span>Milagres PU College, Hampankatta, Mangaluru, Karnataka 575001</span>
             </li>
             <li className={styles.contactItem}>
               <Phone className={styles.icon} size={18} />
