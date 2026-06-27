@@ -59,9 +59,9 @@ export default function GalleryManagement() {
 
       if (photosError) throw photosError;
 
-      const formattedAlbums = (albumsData || []).map(album => ({
+      const formattedAlbums = (albumsData || []).map((album: any) => ({
         ...album,
-        photos: (photosData || []).filter(p => p.album_id === album.id)
+        photos: (photosData || []).filter((p: any) => p.album_id === album.id)
       }));
 
       setAlbums(formattedAlbums);
@@ -334,6 +334,7 @@ export default function GalleryManagement() {
               <div className={styles.photosGrid}>
                 {modalPhotos.map((photo, index) => (
                   <div key={index} className={styles.photoItem}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img 
                       src={photo.file ? URL.createObjectURL(photo.file) : photo.url} 
                       alt={`Photo ${index + 1}`} 
