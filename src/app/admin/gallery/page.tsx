@@ -160,7 +160,7 @@ export default function GalleryManagement() {
         
         // Remove photos that were deleted in the modal
         const currentPhotoIds = modalPhotos.filter(p => p.id).map(p => p.id);
-        const originalPhotoIds = editingAlbum.photos.map(p => p.id);
+        const originalPhotoIds = (editingAlbum?.photos ?? []).map((p: any) => p.id);
         const photosToDelete = originalPhotoIds.filter(id => !currentPhotoIds.includes(id));
         
         if (photosToDelete.length > 0) {
